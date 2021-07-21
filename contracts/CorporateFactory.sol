@@ -27,7 +27,7 @@ contract CorporateFactory {
 
     function createSub(uint id) public  permissioned returns(bool){
         // if set to default address the contract does not yet exist 
-        require(getSubContract(id) == address(0));
+        require(getSubContract(id) != address(0));
         Subsidiary newSub = new Subsidiary(address(this));
         subs.push(address(newSub));
         subsidiaries[id] = sub(address(newSub), id, true);
