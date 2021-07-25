@@ -6,13 +6,14 @@ import "./ReceiverFactory.sol";
 // needs to contain an idenitifier
 contract Admin {
 
-    address public receiverFactory;
+    ReceiverFactory public receiverFactory;
+
     address public corporateFactory;
     address public fundsPool; 
 
 
-    constructor(address ownerReceiver_, address fundsPoolAddress_) {
-        ownerReceiver = ownerReceiver_;
+    constructor() {
+       receiverFactory = new ReceiverFactory();
     }
 
 
@@ -37,4 +38,24 @@ contract Admin {
         _;
     }
 
+
 }
+
+contract FundsPool{
+    address public admin;
+    uint public funds;
+
+    constructor(address admin_){
+        admin = admin_;
+    }
+
+    function sendFunds() public onlyOwner returns
+
+
+    modifier onlyOwner() {
+        require(msg.sender == admin);
+        _;
+    }
+
+}
+
