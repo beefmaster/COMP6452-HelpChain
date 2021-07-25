@@ -35,6 +35,7 @@ contract Receiver {
         require(msg.sender == ownerReceiver);
         _;
     }
+}
 
 contract ReceiverFactory {
 
@@ -48,7 +49,7 @@ contract ReceiverFactory {
 
     Receiver[] receivers;
     function createreceiver() public onlyOwner returns (address) {
-        receiver child = new Receiver(address(this), address(fundsPool));
+        Receiver child = new Receiver(address(this), address(fundsPool));
         receivers.push(child);
         return address(child);
     }
@@ -58,8 +59,5 @@ contract ReceiverFactory {
         require(msg.sender == owner);
         _;
     }
-
-}
-
 
 }
