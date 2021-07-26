@@ -7,13 +7,14 @@ import "./ReceiverFactory.sol";
 contract Admin {
 
     ReceiverFactory public receiverFactory;
-
+    FundsPool public fundsPool; 
     address public corporateFactory;
-    address public fundsPool; 
+    
 
 
     constructor() {
-       receiverFactory = new ReceiverFactory();
+       fundsPool = new FundsPool(this.address); 
+       receiverFactory = new ReceiverFactory(this.address, );
     }
 
 
@@ -49,7 +50,21 @@ contract FundsPool{
         admin = admin_;
     }
 
-    function sendFunds() public onlyOwner returns
+    function distributeFunds(uint amount, address[] receivers) public onlyOwner{
+        require(amount <= address(this).balance, "not enough funds");
+        uint fundsToSend;
+        fundsToSend = amount / receivers.length; 
+
+        for (uint i = 1; i <= receivers.length; i++){
+            sendFunds(fundsToSend, receivers[i]);
+        }
+        
+    }
+
+    function sendFunds(uint amount, address receiver) public onlyOwner{
+        require(amount <= address(this).balance, "not enough funds");
+        receiver.transfer(amount);   
+    }
 
 
     modifier onlyOwner() {
