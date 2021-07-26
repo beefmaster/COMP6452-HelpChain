@@ -1,16 +1,30 @@
-const http = require('http');
+const express = require('express');
+const app = express()
+const port = 5000
+
+const fs = require('fs');
+// json db
+// const db_ob = require('./db_json.json');
 
 
-// boiler plate included with node.js
-const hostname = '127.0.0.1';
-const port = 5000;
+app.get('/write:id', (req, res) => {
+    var linkAddress = req.param('link');
+    var id = req.params.id;
+    write(id, linkAddress);
+    res.send(200);
+})
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+write = (id, linkAddress) => {
+    let data = JSON.stringify({"id" : id, "link" : linkAddress});
+    fs.writeFileSync('./db_json.json', data, (err) => {
+        if (err){
+            console.error(err)
+        }
+    });
+}
+
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
