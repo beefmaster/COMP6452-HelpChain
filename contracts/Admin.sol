@@ -10,25 +10,25 @@ contract Admin {
     ReceiverFactory public receiverFactory;
     FundsPool public fundsPool; 
     CorporateFactory public corporateFactory;
-    
+    address public owner;
 
 
     constructor() {
-       fundsPool = new FundsPool(this.address); 
-       receiverFactory = new ReceiverFactory(this.address, fundsPool.address);
-       corporateFactory = new CorporateFactory(this.address);
-
+        fundsPool = new FundsPool(address(this)); 
+        receiverFactory = new ReceiverFactory(address(this), address(fundsPool));
+        corporateFactory = new CorporateFactory(address(this));
+        owner = msg.sender;
     }
 
 
 
     modifier onlyFundsPool() {
-        require(msg.sender == fundsPoolAddress);
+        require(msg.sender == address(fundsPool));
         _;
     }
 
     modifier onlyOwner() {
-        require(msg.sender == ownerReceiver);
+        require(msg.sender == owner);
         _;
     }
 
@@ -43,7 +43,7 @@ contract FundsPool{
         admin = admin_;
     }
 
-    function distributeFunds(uint amount, address[] receivers) public onlyOwner{
+    function distributeFunds(uint amount, address[] memory receivers) public onlyOwner{
         require(amount <= address(this).balance, "not enough funds");
         uint fundsToSend;
         fundsToSend = amount / receivers.length; 
@@ -54,9 +54,9 @@ contract FundsPool{
         
     }
 
-    function sendFunds(uint amount, address receiver) public onlyOwner{
+    function sendFunds(uint amount, address receiver) public payable onlyOwner{
         require(amount <= address(this).balance, "not enough funds");
-        receiver.transfer(amount);   
+        payable(receiver).transfer(amount);   
     }
 
 
