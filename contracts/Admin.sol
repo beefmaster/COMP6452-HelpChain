@@ -1,5 +1,6 @@
 pragma solidity >=0.7.0 <0.9.0;
 import "./ReceiverFactory.sol";
+import "./CorporateFactory.sol";
 
 
 // Contract that funds are received at
@@ -8,26 +9,18 @@ contract Admin {
 
     ReceiverFactory public receiverFactory;
     FundsPool public fundsPool; 
-    address public corporateFactory;
+    CorporateFactory public corporateFactory;
     
 
 
     constructor() {
        fundsPool = new FundsPool(this.address); 
-       receiverFactory = new ReceiverFactory(this.address, );
+       receiverFactory = new ReceiverFactory(this.address, fundsPool.address);
+       corporateFactory = new CorporateFactory(this.address);
+
     }
 
 
-    // Gives the receiver the funds
-    function createRece(uint amount) public payable onlyFundsPool {
-        require(msg.value == amount);
-        funds += amount;
-    }
-
-    function spendFunds(uint cost, address to_) public onlyOwner {
-        funds -= cost;
-        payable(to_).transfer(cost);
-    }
 
     modifier onlyFundsPool() {
         require(msg.sender == fundsPoolAddress);
