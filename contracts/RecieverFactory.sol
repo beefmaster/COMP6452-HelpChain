@@ -1,8 +1,6 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 
-
-
 contract RecieverFactory {
 
     address public fundsPool;
@@ -13,10 +11,10 @@ contract RecieverFactory {
         owner = owner_;
     }
 
-    Reciever[] recievers;
+    Receiver[] receivers;
     function createReciever() public onlyOwner returns (address) {
-        Reciever child = new Reciever(address(this), address(fundsPool));
-        recievers.push(child);
+        Receiver child = new Receiver(address(this), address(fundsPool));
+        receivers.push(child);
         return address(child);
     }
 
@@ -31,15 +29,15 @@ contract RecieverFactory {
 
 // Contract that funds are recieved at
 // needs to contain an idenitifier
-contract Reciever {
+contract Receiver {
 
-    address public ownerReciever;
+    address public ownerReceiver;
     address public fundsPoolAddress;
     uint public funds;
 
 
-    constructor(address ownerReciever_, address fundsPoolAddress_) {
-        ownerReciever = ownerReciever_;
+    constructor(address ownerReceiver_, address fundsPoolAddress_) {
+        ownerReceiver = ownerReceiver_;
         fundsPoolAddress = fundsPoolAddress_;
     }
 
@@ -61,7 +59,7 @@ contract Reciever {
     }
 
     modifier onlyOwner() {
-        require(msg.sender == ownerReciever);
+        require(msg.sender == ownerReceiver);
         _;
     }
 }
