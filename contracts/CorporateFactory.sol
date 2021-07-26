@@ -2,9 +2,38 @@ pragma solidity >=0.7.0 <0.9.0;
 
 
 
-contract CorporateFactory {
-    
-    address public owner_; // owner address 
+contract CorporateFactory { 
+    address public owner; // owner address 
+    mapping(uint => corporate) public corporates;
+    uint numCorps; // a mapping of contract ids to the corporate struct.
+
+    struct corporate {
+        address corpAddress;
+        uint id;
+        bool valid;
+    }
+
+    constructor(address owner_) public {
+        owner = owner_;
+    }
+
+    function createCorp(string corpName) public  permissioned returns(bool){
+        Corporate newCorp = new Corporate(owner,corpName);
+        corporate[numCorps] = corporate(address(newCorp), numCorps, true);
+        numCorps += 1;
+    }
+
+    function getCorporate(uint id) public permissioned returns(address)  {
+        return corporates[id].corpAddress;
+    }
+
+    modifier permissioned {
+        require(msg.sender == owner);
+        _;
+    }
+}
+
+contract Corporate {
     address public creator_; // creator of the contract
     string public corporate_name_; // name of the contract
     mapping(uint => sub) public subsidiaries; // a mapping of contract ids to the sub struct.
@@ -18,11 +47,9 @@ contract CorporateFactory {
     }
 
 
-    constructor(address owner, string memory name, address whitelistPointer) public {
+    constructor(address creator, string memory name) public {
         creator_ = msg.sender;
-        corporate_name_ = name;
-        owner_ = owner;
-        whitelist = whitelistPointer;
+        corporate_name_ = name;     
     }
 
     function createSub(uint id) public  permissioned returns(bool){
@@ -34,6 +61,10 @@ contract CorporateFactory {
     }
 
     function getSubContract(uint id) public permissioned returns(address)  {
+        return subsidiaries[id].subAddress;
+    }
+
+    function updateWhitelist(WhiteList id) public permissioned returns(address)  {
         return subsidiaries[id].subAddress;
     }
 
