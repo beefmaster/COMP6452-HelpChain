@@ -1,5 +1,6 @@
-const Migrations = artifacts.require("CorporateFactory");
+const CorporateFactory = artifacts.require("CorporateFactory");
+
 
 module.exports = function(deployer) {
-  deployer.deploy(Migrations);
+  // deployer.deploy(CorporateFactory, );
 };

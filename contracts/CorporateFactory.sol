@@ -1,5 +1,6 @@
 pragma solidity >=0.7.0 <0.9.0;
 
+import "./whitelist.sol";
 
 
 contract CorporateFactory { 
@@ -17,11 +18,11 @@ contract CorporateFactory {
         owner = owner_;
     }
 
-    function createCorp(string corpName) public  permissioned returns(bool){
-        Corporate newCorp = new Corporate(owner,corpName);
-        corporate[numCorps] = corporate(address(newCorp), numCorps, true);
-        numCorps += 1;
-    }
+    // function createCorp(string memory corpName) public  permissioned returns(bool){
+    //     Corporate newCorp = new Corporate(owner,corpName);
+    //     corporate[numCorps] = corporate(address(newCorp), numCorps, true);
+    //     numCorps += 1;
+    // }
 
     function getCorporate(uint id) public permissioned returns(address)  {
         return corporates[id].corpAddress;
@@ -38,8 +39,9 @@ contract Corporate {
     string public corporate_name_; // name of the contract
     mapping(uint => sub) public subsidiaries; // a mapping of contract ids to the sub struct.
     address[] public subs; // could make this into a struct so the id can be found easily.
-    address public whitelist;
-
+    whitelist public whitelist_;
+    address public owner;
+    
     struct sub {
         address subAddress;
         uint id;
@@ -47,7 +49,8 @@ contract Corporate {
     }
 
 
-    constructor(address creator, string memory name) public {
+    constructor(address owner_, string memory name) public {
+        owner = owner_;
         creator_ = msg.sender;
         corporate_name_ = name;     
     }
@@ -64,12 +67,12 @@ contract Corporate {
         return subsidiaries[id].subAddress;
     }
 
-    function updateWhitelist(WhiteList id) public permissioned returns(address)  {
+    function updateWhitelist(uint id) public permissioned returns(address)  {
         return subsidiaries[id].subAddress;
     }
 
     modifier permissioned {
-        require(msg.sender == owner_ || msg.sender == creator_);
+        require(msg.sender == owner || msg.sender == creator_);
         _;
     }
 }

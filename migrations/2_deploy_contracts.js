@@ -2,14 +2,15 @@
 // const MetaCoin = artifacts.require("MetaCoin");
 const CorporateFactory = artifacts.require("CorporateFactory");
 const SubsidiaryContract = artifacts.require("Subsidiary");
-const RecieverFactory = artifacts.require("RecieverFactory");
-const Reciever = artifacts.require("Reciever");
+const ReceiverFactory = artifacts.require("ReceiverFactory");
+const Receiver = artifacts.require("Receiver");
+const Admin = artifacts.require("Admin");
+const WhiteList = artifacts.require("WhiteList");
 
-module.exports = function(deployer) {
+module.exports = async function(deployer) {
   
-
-  deployer.deploy(CorporateFactory);
-  // deployer.link(ConvertLib, MetaCoin);
-  // deployer.deploy(MetaCoin);
-
+  let AdminDeployer = await deployer.deploy(Admin);
+  // let CorporateFactoryDeployer = await deployer.deploy(CorporateFactory, Admin.address);
+  // let ReceiverFactoryDeployer = await deployer.deploy(ReceiverFactory, Admin.address);
+  // let WhiteListDeployer = await deployer.deploy(WhiteList);
 };
