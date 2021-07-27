@@ -27,10 +27,14 @@ app.post('/write', async (req, res) => {
         console.log("Entered next sequential task");
         write(personId, linkAddress, txId);
         try {
-            await contractTransactionInsert(personId, linkAddress, txId).then(() => {
+            console.log("did this run properly??");
+            await contractTransactionInsert(personId, linkAddress, txId).then((r) => {
+                console.log("apparently insert ran");
+                console.log(r);
                 res.send(200);
             });
         } catch (e) {
+            console.log("entered error block");
             res.send(e);
             return;
         }
@@ -61,15 +65,17 @@ write = (id, linkAddress, transactionId) => {
 }
 
 // Inserts into appropriate subsidiary contract.
+// This is not being called correctly and is not running
+// need to get this oracle going. Before tommorrow.
 contractTransactionInsert = async (id, subAddress, transactionId) => {
+    console.log("entered block chain insert contract")
     let data = JSON.stringify({"id" : int(id), "link" : string(linkAddress)});
     await web3.eth.getAccounts()[0].then(async (account) => {
         let subContract = new web3.eth.Contract("./build/contracts/Subsidiary.json", subAddress);
         await subContract.methods.insertTransaction(id, transactionId).send({from: account});
-    })
+    });
     
     console.log("successfully inserted transaction into contract");
-    return true;
 }
 
 app.listen(port, () => {
