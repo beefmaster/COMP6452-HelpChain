@@ -15,7 +15,7 @@ contract CorporateFactory {
         bool valid;
     }
 
-    constructor(address owner_) public {
+    constructor(address owner_) {
         owner = owner_;
     }
 
@@ -23,6 +23,7 @@ contract CorporateFactory {
         Corporate newCorp = new Corporate(owner,corpName);
         corporates[numCorps] = corporate(address(newCorp), numCorps, true);
         numCorps += 1;
+        return true;
     }
 
     function getCorporate(uint id) public permissioned returns(address)  {
@@ -47,11 +48,11 @@ contract CorporateFactory {
 
 contract Corporate {
     address public creator_; // creator of the contract
+    address public owner; // creator of the contract
     string public corporate_name_; // name of the contract
     mapping(uint => sub) public subsidiaries; // a mapping of contract ids to the sub struct.
     address[] public subs; // could make this into a struct so the id can be found easily.
     whitelist public whitelist_;
-    address public owner;
     
     struct sub {
         address subAddress;
@@ -60,7 +61,7 @@ contract Corporate {
     }
 
 
-    constructor(address owner_, string memory name) public {
+    constructor(address owner_, string memory name){
         owner = owner_;
         creator_ = msg.sender;
         corporate_name_ = name;     
@@ -72,6 +73,7 @@ contract Corporate {
         Subsidiary newSub = new Subsidiary(address(this));
         subs.push(address(newSub));
         subsidiaries[id] = sub(address(newSub), id, true);
+        return true;
     }
 
     function getSubContract(uint id) public permissioned returns(address)  {
