@@ -20,7 +20,24 @@ contract Admin {
         owner = msg.sender;
     }
 
+    function updateFundsPool(FundsPool pool) private {
+        // make sure that this pool was created by the admin contract 
+        require(address(this) == pool.admin(), "Pool was not created by the admin");
+        fundsPool = pool;
+    }
 
+    function updateCorporateFactory(CorporateFactory fac) private {
+        // make sure that this pool was created by the admin contract 
+        require(address(this) == fac.owner(), "Factory was not created by the admin");
+        corporateFactory = fac;
+    }
+
+    function updateReceiverFactory(ReceiverFactory fac) private {
+        // make sure that this pool was created by the admin contract 
+        require(address(this) == fac.owner(), "Factory was not created by the admin");
+        receiverFactory = fac;
+    }
+    
     modifier onlyFundsPool() {
         require(msg.sender == address(fundsPool));
         _;

@@ -20,9 +20,9 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.6+commit.11564f7e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/cameronbaker/Documents/Third_Year_Uni/comp6452/Ass2-Group/COMP6452-HelpChain/contracts/whitelist.sol\":\"whitelist\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/cameronbaker/Documents/Third_Year_Uni/comp6452/Ass2-Group/COMP6452-HelpChain/contracts/whitelist.sol\":{\"keccak256\":\"0x426761150551a2f2d5758495218f564981318d91e32bc124ca4d5bf6f65c52e9\",\"urls\":[\"bzz-raw://1a0e33a071ab8f193944c708db1c7cf8abd75f8fbd5a08bd75bf5e4017b466e3\",\"dweb:/ipfs/QmcghbNmNwz3GUuuJpPBLj8jUECJAMfKBhwRAwo1dnFYHj\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b50336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060f78061005f6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80638da5cb5b14602d575b600080fd5b60336047565b604051603e91906078565b60405180910390f35b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6072816091565b82525050565b6000602082019050608b6000830184606b565b92915050565b6000609a8260a1565b9050919050565b600073ffffffffffffffffffffffffffffffffffffffff8216905091905056fea26469706673582212201f3e3faa1121b8d06cbc5a223d3c0da8df48a98143dad03aab522e135691ae3c64736f6c63430008060033",
-  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c80638da5cb5b14602d575b600080fd5b60336047565b604051603e91906078565b60405180910390f35b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6072816091565b82525050565b6000602082019050608b6000830184606b565b92915050565b6000609a8260a1565b9050919050565b600073ffffffffffffffffffffffffffffffffffffffff8216905091905056fea26469706673582212201f3e3faa1121b8d06cbc5a223d3c0da8df48a98143dad03aab522e135691ae3c64736f6c63430008060033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.6+commit.11564f7e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/whitelist.sol\":\"whitelist\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/whitelist.sol\":{\"keccak256\":\"0x426761150551a2f2d5758495218f564981318d91e32bc124ca4d5bf6f65c52e9\",\"urls\":[\"bzz-raw://1a0e33a071ab8f193944c708db1c7cf8abd75f8fbd5a08bd75bf5e4017b466e3\",\"dweb:/ipfs/QmcghbNmNwz3GUuuJpPBLj8jUECJAMfKBhwRAwo1dnFYHj\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060f78061005f6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80638da5cb5b14602d575b600080fd5b60336047565b604051603e91906078565b60405180910390f35b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6072816091565b82525050565b6000602082019050608b6000830184606b565b92915050565b6000609a8260a1565b9050919050565b600073ffffffffffffffffffffffffffffffffffffffff8216905091905056fea2646970667358221220993a70293ffcef6f83f133523fdae237d3f1b78c17f6ec0205677071b609d71664736f6c63430008060033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c80638da5cb5b14602d575b600080fd5b60336047565b604051603e91906078565b60405180910390f35b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6072816091565b82525050565b6000602082019050608b6000830184606b565b92915050565b6000609a8260a1565b9050919050565b600073ffffffffffffffffffffffffffffffffffffffff8216905091905056fea2646970667358221220993a70293ffcef6f83f133523fdae237d3f1b78c17f6ec0205677071b609d71664736f6c63430008060033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [
@@ -328,19 +328,19 @@
   "sourceMap": "34:116:3:-:0;;;91:49;;;;;;;;;;123:10;115:5;;:18;;;;;;;;;;;;;;;;;;34:116;;;;;;",
   "deployedSourceMap": "34:116:3:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;60:20;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;:::o;7:118:4:-;94:24;112:5;94:24;:::i;:::-;89:3;82:37;72:53;;:::o;131:222::-;224:4;262:2;251:9;247:18;239:26;;275:71;343:1;332:9;328:17;319:6;275:71;:::i;:::-;229:124;;;;:::o;359:96::-;396:7;425:24;443:5;425:24;:::i;:::-;414:35;;404:51;;;:::o;461:126::-;498:7;538:42;531:5;527:54;516:65;;506:81;;;:::o",
   "source": "pragma solidity >=0.7.0 <0.9.0;\n\n\ncontract whitelist {\n\n    address public owner;\n    \n    constructor() {\n        owner = msg.sender;\n    }\n\n    \n\n\n}",
-  "sourcePath": "/Users/cameronbaker/Documents/Third_Year_Uni/comp6452/Ass2-Group/COMP6452-HelpChain/contracts/whitelist.sol",
+  "sourcePath": "/Users/dylan/Library/Mobile Documents/com~apple~CloudDocs/Developer/UNSW/COMP6452_Blockchain_Architecture/COMP6452-HelpChain/contracts/whitelist.sol",
   "ast": {
-    "absolutePath": "/Users/cameronbaker/Documents/Third_Year_Uni/comp6452/Ass2-Group/COMP6452-HelpChain/contracts/whitelist.sol",
+    "absolutePath": "project:/contracts/whitelist.sol",
     "exportedSymbols": {
       "whitelist": [
-        16
+        774
       ]
     },
-    "id": 17,
+    "id": 775,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4,
+        "id": 762,
         "literals": [
           "solidity",
           ">=",
@@ -359,9 +359,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 16,
+        "id": 774,
         "linearizedBaseContracts": [
-          16
+          774
         ],
         "name": "whitelist",
         "nameLocation": "43:9:3",
@@ -370,12 +370,12 @@
           {
             "constant": false,
             "functionSelector": "8da5cb5b",
-            "id": 6,
+            "id": 764,
             "mutability": "mutable",
             "name": "owner",
             "nameLocation": "75:5:3",
             "nodeType": "VariableDeclaration",
-            "scope": 16,
+            "scope": 774,
             "src": "60:20:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -384,7 +384,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 5,
+              "id": 763,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "60:7:3",
@@ -398,23 +398,23 @@
           },
           {
             "body": {
-              "id": 14,
+              "id": 772,
               "nodeType": "Block",
               "src": "105:35:3",
               "statements": [
                 {
                   "expression": {
-                    "id": 12,
+                    "id": 770,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 9,
+                      "id": 767,
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6,
+                      "referencedDeclaration": 764,
                       "src": "115:5:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -425,7 +425,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "expression": {
-                        "id": 10,
+                        "id": 768,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
@@ -436,7 +436,7 @@
                           "typeString": "msg"
                         }
                       },
-                      "id": 11,
+                      "id": 769,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -455,13 +455,13 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 13,
+                  "id": 771,
                   "nodeType": "ExpressionStatement",
                   "src": "115:18:3"
                 }
               ]
             },
-            "id": 15,
+            "id": 773,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -469,25 +469,25 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 7,
+              "id": 765,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "102:2:3"
             },
             "returnParameters": {
-              "id": 8,
+              "id": 766,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "105:0:3"
             },
-            "scope": 16,
+            "scope": 774,
             "src": "91:49:3",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 17,
+        "scope": 775,
         "src": "34:116:3",
         "usedErrors": []
       }
@@ -495,17 +495,17 @@
     "src": "0:150:3"
   },
   "legacyAST": {
-    "absolutePath": "/Users/cameronbaker/Documents/Third_Year_Uni/comp6452/Ass2-Group/COMP6452-HelpChain/contracts/whitelist.sol",
+    "absolutePath": "project:/contracts/whitelist.sol",
     "exportedSymbols": {
       "whitelist": [
-        16
+        774
       ]
     },
-    "id": 17,
+    "id": 775,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4,
+        "id": 762,
         "literals": [
           "solidity",
           ">=",
@@ -524,9 +524,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 16,
+        "id": 774,
         "linearizedBaseContracts": [
-          16
+          774
         ],
         "name": "whitelist",
         "nameLocation": "43:9:3",
@@ -535,12 +535,12 @@
           {
             "constant": false,
             "functionSelector": "8da5cb5b",
-            "id": 6,
+            "id": 764,
             "mutability": "mutable",
             "name": "owner",
             "nameLocation": "75:5:3",
             "nodeType": "VariableDeclaration",
-            "scope": 16,
+            "scope": 774,
             "src": "60:20:3",
             "stateVariable": true,
             "storageLocation": "default",
@@ -549,7 +549,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 5,
+              "id": 763,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "60:7:3",
@@ -563,23 +563,23 @@
           },
           {
             "body": {
-              "id": 14,
+              "id": 772,
               "nodeType": "Block",
               "src": "105:35:3",
               "statements": [
                 {
                   "expression": {
-                    "id": 12,
+                    "id": 770,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 9,
+                      "id": 767,
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 6,
+                      "referencedDeclaration": 764,
                       "src": "115:5:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -590,7 +590,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "expression": {
-                        "id": 10,
+                        "id": 768,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
@@ -601,7 +601,7 @@
                           "typeString": "msg"
                         }
                       },
-                      "id": 11,
+                      "id": 769,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -620,13 +620,13 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 13,
+                  "id": 771,
                   "nodeType": "ExpressionStatement",
                   "src": "115:18:3"
                 }
               ]
             },
-            "id": 15,
+            "id": 773,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -634,25 +634,25 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 7,
+              "id": 765,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "102:2:3"
             },
             "returnParameters": {
-              "id": 8,
+              "id": 766,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "105:0:3"
             },
-            "scope": 16,
+            "scope": 774,
             "src": "91:49:3",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 17,
+        "scope": 775,
         "src": "34:116:3",
         "usedErrors": []
       }
@@ -664,9 +664,8 @@
     "version": "0.8.6+commit.11564f7e.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.3.4",
-  "updatedAt": "2021-07-27T11:35:19.132Z",
-  "networkType": "ethereum",
+  "schemaVersion": "3.4.2",
+  "updatedAt": "2021-07-27T22:25:46.878Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
