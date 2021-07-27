@@ -7,6 +7,7 @@ contract Receiver {
     address public ownerReceiver;
     address public fundsPoolAddress;
     uint public funds;
+    event ValueReceived(address user, uint amount);
 
 
     constructor(address ownerReceiver_, address fundsPoolAddress_) {
@@ -14,14 +15,13 @@ contract Receiver {
         fundsPoolAddress = fundsPoolAddress_;
     }
 
-
     // Gives the receiver the funds
-    function addFunds(uint amount) public payable onlyFundsPool {
-        require(msg.value == amount);
-        funds += amount;
+    receive() external payable {
+        funds += msg.value;
+        emit ValueReceived(msg.sender, msg.value);
     }
 
-    function spendFunds(uint cost, address to_) public onlyOwner {
+    function spendFunds(uint cost, address to_) public payable onlyOwner {
         funds -= cost;
         payable(to_).transfer(cost);
     }
