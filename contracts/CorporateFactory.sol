@@ -26,7 +26,7 @@ contract CorporateFactory {
         return true;
     }
 
-    function getCorporate(uint id) public permissioned returns(address)  {
+    function getCorporate(uint id) public view permissioned returns(address)  {
         return corporates[id].corpAddress;
     }
 
