@@ -7,6 +7,7 @@ contract CorporateFactory {
     address public owner; // owner address 
     mapping(uint => corporate) public corporates;
     uint numCorps; // a mapping of contract ids to the corporate struct.
+    bool active = true;
 
     struct corporate {
         address corpAddress;
@@ -18,18 +19,28 @@ contract CorporateFactory {
         owner = owner_;
     }
 
-    // function createCorp(string memory corpName) public  permissioned returns(bool){
-    //     Corporate newCorp = new Corporate(owner,corpName);
-    //     corporate[numCorps] = corporate(address(newCorp), numCorps, true);
-    //     numCorps += 1;
-    // }
+    function createCorp(string memory corpName) public  permissioned activeContract returns(bool){
+        Corporate newCorp = new Corporate(owner,corpName);
+        corporates[numCorps] = corporate(address(newCorp), numCorps, true);
+        numCorps += 1;
+    }
 
     function getCorporate(uint id) public permissioned returns(address)  {
         return corporates[id].corpAddress;
     }
 
+    function toggleContractActivation() public permissioned returns (bool){
+        active = !active;
+        return(active);
+    }
+
     modifier permissioned {
-        require(msg.sender == owner);
+        require(msg.sender == owner, "Only the owner can access this function");
+        _;
+    }
+
+    modifier activeContract{
+        require(active = true, "Contract no longer active");
         _;
     }
 }
