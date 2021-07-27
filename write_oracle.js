@@ -34,8 +34,6 @@ app.post('/write', async (req, res) => {
             res.send(e);
             return;
         }
-        
-        
     });
     
 })
