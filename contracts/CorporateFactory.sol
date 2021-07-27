@@ -95,6 +95,7 @@ contract Subsidiary {
     address payable parent_;
     uint amount;
     mapping(address => bool) permissionedAddress;
+    event ValueReceived(address user, uint amount);
 
     // transaction id to person id
     mapping(uint => uint) transactions;
@@ -117,6 +118,10 @@ contract Subsidiary {
     function insertTransaction(uint transID, uint person_id) restricted() public returns(bool) {
         transactions[transID] = person_id;
         return true;
+    }
+
+    receive() external payable{
+        emit ValueReceived(msg.sender, msg.value);
     }
     
     modifier restricted {

@@ -38,6 +38,7 @@ contract Admin {
 contract FundsPool{
     address public admin;
     uint public funds;
+    event ValueReceived(address user, uint amount);
 
     constructor(address admin_){
         admin = admin_;
@@ -57,6 +58,10 @@ contract FundsPool{
     function sendFunds(uint amount, address receiver) public payable onlyOwner{
         require(amount <= address(this).balance, "not enough funds");
         payable(receiver).transfer(amount);   
+    }
+
+    receive() external payable{
+        emit ValueReceived(msg.sender, msg.value);
     }
 
 
