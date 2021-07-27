@@ -13,13 +13,12 @@ contract Admin {
     address public owner;
 
 
-    constructor() {
-        fundsPool = new FundsPool(address(this)); 
-        receiverFactory = new ReceiverFactory(address(this), address(fundsPool));
-        corporateFactory = new CorporateFactory(address(this));
+    constructor(FundsPool funds_, ReceiverFactory receiver_, CorporateFactory corp_) {
+        fundsPool = funds_;
+        receiverFactory = receiver_;
+        corporateFactory = corp_;
         owner = msg.sender;
     }
-
 
 
     modifier onlyFundsPool() {

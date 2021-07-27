@@ -42,9 +42,9 @@ contract ReceiverFactory {
     address public fundsPool;
     address public owner;
 
-    constructor(address owner_, address fundsPool_) {
+    constructor(address fundsPool_) {
         fundsPool = fundsPool_;
-        owner = owner_;
+        owner = msg.sender;
     }
 
     Receiver[] receivers;

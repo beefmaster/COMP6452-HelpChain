@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // json db
 // const db_ob = require('./db_json.json');
-web3.eth.defaultAccount = '0x68D4Ab4AB14765532c68612941F8Bb86e46300E5';
+
 // request must contain link and subaddress in the request. 
 app.post('/write', async (req, res) => {
     console.log("hit write url");
@@ -63,8 +63,11 @@ write = (id, linkAddress, transactionId) => {
 // Inserts into appropriate subsidiary contract.
 contractTransactionInsert = async (id, subAddress, transactionId) => {
     let data = JSON.stringify({"id" : int(id), "link" : string(linkAddress)});
-    let subContract = new web3.eth.Contract(jsonInterface, subAddress);
-    await subContract.methods.insertTransaction(id, transactionId).send({from: web3.eth.defaultAccount});
+    await web3.eth.getAccounts()[0].then(async (account) => {
+        let subContract = new web3.eth.Contract("./build/contracts/Subsidiary.json", subAddress);
+        await subContract.methods.insertTransaction(id, transactionId).send({from: account});
+    })
+    
     console.log("successfully inserted transaction into contract");
     return true;
 }

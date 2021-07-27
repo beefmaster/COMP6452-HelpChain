@@ -15,8 +15,8 @@ contract CorporateFactory {
         bool valid;
     }
 
-    constructor(address owner_) {
-        owner = owner_;
+    constructor() {
+        owner = msg.sender;
     }
 
     function createCorp(string memory corpName) public  permissioned activeContract returns(bool){
