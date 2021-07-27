@@ -57,11 +57,13 @@ contract FundsPool{
 
     function sendFunds(uint amount, address receiver) public payable onlyOwner{
         require(amount <= address(this).balance, "not enough funds");
-        payable(receiver).transfer(amount);   
+        payable(receiver).transfer(amount); 
+        funds -= amount;  
     }
 
     receive() external payable{
         emit ValueReceived(msg.sender, msg.value);
+        funds = address(this).balance;
     }
 
 
