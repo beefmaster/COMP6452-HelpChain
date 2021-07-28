@@ -1,6 +1,6 @@
 pragma solidity >=0.7.0 <0.9.0;
 
-import "./whitelist.sol";
+import "./Whitelist.sol";
 
 
 contract CorporateFactory { 
@@ -26,10 +26,6 @@ contract CorporateFactory {
         return true;
     }
 
-    function testForContract() public returns(bool) {
-        return true;
-    }
-
     function getCorporate(uint id) public view permissioned returns(address)  {
         return corporates[id].corpAddress;
     }
@@ -52,11 +48,11 @@ contract CorporateFactory {
 
 contract Corporate {
     address public creator_; // creator of the contract
-    address public owner; // creator of the contract
+    address public owner; // owner of the contract i.e the corporate
     string public corporate_name_; // name of the contract
-    mapping(uint => sub) public subsidiaries; // a mapping of contract ids to the sub struct.
+    mapping(address => sub) public subsidiaries; // a mapping of addresses to the sub struct.
     address[] public subs; // could make this into a struct so the id can be found easily.
-    whitelist public whitelist_;
+    Whitelist public whitelist; //whitelist associated with the corporate
     
     struct sub {
         address subAddress;
@@ -65,27 +61,32 @@ contract Corporate {
     }
 
 
+    // allows for an owner i.e. corporate to be passed into the constructor 
     constructor(address owner_, string memory name){
         owner = owner_;
         creator_ = msg.sender;
         corporate_name_ = name;     
     }
 
+    // This function is used to create a Subsidiary branch of the Corporate representing a store
     function createSub(uint id) public  permissioned returns(bool){
         // if set to default address the contract does not yet exist 
         require(getSubContract(id) != address(0));
         Subsidiary newSub = new Subsidiary(address(this));
-        subs.push(address(newSub));
-        subsidiaries[id] = sub(address(newSub), id, true);
+        subs.push(address(newSub)); // add new sub to subsidiary array 
+        subsidiaries[address(newSub)] = sub(address(newSub), id, true); // add new sub to mapping
         return true;
     }
 
-    function getSubContract(uint id) public permissioned returns(address)  {
-        return subsidiaries[id].subAddress;
+    // returns the subsidiary struct
+    function getSubContract(uint id) public view permissioned returns(address)  {
+        return subs[id];
     }
 
-    function updateWhitelist(uint id) public permissioned returns(address)  {
-        return subsidiaries[id].subAddress;
+    // updates the whiteList 
+    function updateWhitelist(Whitelist whitelist_) public permissioned {
+        require(whitelist_.owner() == owner || whitelist.owner() == creator_, "Whitelist not created by known party");
+        whitelist = whitelist_;
     }
 
     modifier permissioned {
@@ -95,14 +96,16 @@ contract Corporate {
 }
 
 
+
+// This contract represent a Subsidiary branch of a corporate 
 contract Subsidiary {
-    address payable parent_;
-    uint amount;
-    mapping(address => bool) permissionedAddress;
+    address payable parent_; // Corporate Contract
+    uint amount; //Balanace
+    mapping(address => bool) permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
 
     // transaction id to person id
-    mapping(uint => uint) transactions;
+    mapping(uint => uint) transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
 
     constructor(address parent) {
         parent_ = payable(parent);
@@ -111,7 +114,7 @@ contract Subsidiary {
 
     // need to make sure no possibility for double spend
     // Will reset to zero and prevent withdrawl whilst the send transaction is processed.
-    function getTake() accountsAccess() public payable returns(bool)  {
+    function getTake() public payable accountsAccess returns(bool)  {
         uint prevAmount = amount;
         amount = 0;
         return parent_.send(prevAmount); // need to write a fallback function if this fails.
@@ -119,11 +122,12 @@ contract Subsidiary {
 
     // Oracle end point.
     // reassess this function as it always returns true.
-    function insertTransaction(uint transID, uint person_id) restricted() public returns(bool) {
+    function insertTransaction(uint transID, uint person_id) restricted public returns(bool) {
         transactions[transID] = person_id;
         return true;
     }
 
+    // provides functionality to receive funds
     receive() external payable{
         emit ValueReceived(msg.sender, msg.value);
     }
