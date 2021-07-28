@@ -64,10 +64,13 @@ contract ReceiverFactory {
             return false;
     }
 
-    function getNumReceivers() public view returns(uint){
-        return receiver_array.length;
+    function getReceiver(uint index) public view returns(address){
+        return address(receiver_array[index]);
     }
 
+    function getNumOfReceivers() public view returns(uint){
+        return receiver_array.length;
+    }
 
     modifier onlyOwner() {
         require(msg.sender ==  owner);

@@ -14,11 +14,13 @@ contract FundsPool{
 
     function distributeFunds(uint amount) public onlyOwner{
         require(amount <= address(this).balance, "not enough funds");
+        uint numOfReceivers = receiverFactory.getNumOfReceivers();
+        require(numOfReceivers > 0, "No receivers to receive funds");
         uint fundsToSend;
-        fundsToSend = amount / receivers.length; 
+        fundsToSend = amount / numOfReceivers; 
 
-        for (uint i = 1; i <= receivers.length; i++){
-            sendFunds(fundsToSend, receivers[i]);
+        for (uint i = 1; i <= numOfReceivers; i++){
+            sendFunds(fundsToSend, receiverFactory.getReceiver(i));
         }
         
     }
@@ -27,6 +29,11 @@ contract FundsPool{
         require(amount <= address(this).balance, "not enough funds");
         payable(receiver).transfer(amount); 
         funds -= amount;  
+    }
+
+    function updateReceiverFactory(ReceiverFactory rec) public onlyOwner{
+        require(rec.owner() == admin, "Receiver Factory does not match Admin");
+        receiverFactory = rec;  
     }
 
     receive() external payable{
