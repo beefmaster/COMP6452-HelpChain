@@ -14,7 +14,6 @@ contract Giver {
     }
 
     function addFunds(address ownerGiver_, uint amount) public {
-        funds += amount;
         payable(ownerGiver_).transfer(amount);
     }
 
