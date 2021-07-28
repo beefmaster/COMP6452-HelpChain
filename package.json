@@ -2,6 +2,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "ganache-cli": "^6.12.2",
     "nodejs": "*",
     "solc": "^0.8.6",
     "web3": "^1.4.0"
