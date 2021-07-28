@@ -1,6 +1,6 @@
 pragma solidity >=0.7.0 <0.9.0;
 
-// Contract that funds are received at
+// Contract that creates givers
 // needs to contain an idenitifier
 contract Giver {
 
