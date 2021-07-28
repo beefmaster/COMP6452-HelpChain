@@ -18,15 +18,12 @@ contract Giver {
         payable(ownerGiver_).transfer(amount);
     }
 
-    function giveFunds(uint amount, address to_, address fundsPoolAddress_) public payable onlyOwner {
+    function giveFunds(uint amount, address to_) public payable onlyOwner {
 
         if (this.balance >= amount) {
             funds -= amount;
-            Receiver r = new  Receiver(to_, fundsPoolAddress_);
-            r.receive({
-                from: address(this),
-                value: amount
-            });
+            payable(to_).transfer(amount);
+
         }
     }
 
@@ -39,7 +36,7 @@ contract Giver {
 contract GiverFactory {
 
     address public owner;
-    mapping(address => bool) givers; 
+    mapping(address => bool) givers;
     uint public numberOfGivers;
 
     constructor() {
