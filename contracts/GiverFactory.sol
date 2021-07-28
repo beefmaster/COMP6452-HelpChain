@@ -39,6 +39,7 @@ contract Giver {
 contract GiverFactory {
 
     address public owner;
+    address public fundsPool;
     mapping(address => bool) givers;
     uint public numberOfGivers;
 
@@ -47,7 +48,7 @@ contract GiverFactory {
     }
 
     function creategiver() public onlyOwner returns (address) {
-        Giver child = new Giver(address(this), 0);
+        Giver child = new Giver(address(this), address(fundsPool));
         givers[address(child)]  = true;
         numberOfGivers += 1;
         return address(child);
