@@ -26,18 +26,14 @@ app.post('/write', async (req, res) => {
     getTransId().then(async (txId) => {
         console.log("Entered next sequential task");
         write(personId, linkAddress, txId);
-        try {
-            console.log("did this run properly??");
-            await contractTransactionInsert(personId, linkAddress, txId).then((r) => {
-                console.log("apparently insert ran");
-                console.log(r);
-                res.send(200);
-            });
-        } catch (e) {
-            console.log("entered error block");
-            res.send(e);
-            return;
-        }
+    
+        console.log("did this run properly??");
+        await contractTransactionInsert(personId, linkAddress, txId).then((r) => {
+            console.log("apparently insert ran");
+            console.log(r);
+            res.send(200);
+        });
+        
     });
     
 })
@@ -69,11 +65,14 @@ write = (id, linkAddress, transactionId) => {
 // need to get this oracle going. Before tommorrow.
 contractTransactionInsert = async (id, subAddress, transactionId) => {
     console.log("entered block chain insert contract")
-    let data = JSON.stringify({"id" : int(id), "link" : string(linkAddress)});
-    await web3.eth.getAccounts()[0].then(async (account) => {
-        let subContract = new web3.eth.Contract("./build/contracts/Subsidiary.json", subAddress);
-        await subContract.methods.insertTransaction(id, transactionId).send({from: account});
-    });
+    // let data = JSON.stringify({"pid" : id, "link" : linkAddress});
+    const account = await web3.eth.getAccounts()[0];
+    const contractJSON = fs.readFileSync('./bin/contracts/CorporateFactory.abi');
+    const abiParse = JSON.parse(contractJSON);
+
+    let CorporateFactoryContarct = new web3.eth.Contract(abiParse, "0x92cbdbc434c41AA2EdCeE12644A6c8f2f1029209");
+    await CorporateFactoryContarct.methods.createCorp("hey").send({from: "0x0f5529d1372737DA7C28996Bba6C2AAbAf19847A"});
+
     
     console.log("successfully inserted transaction into contract");
 }
