@@ -26,6 +26,10 @@ contract CorporateFactory {
         return true;
     }
 
+    function testForContract() public returns(bool) {
+        return true;
+    }
+
     function getCorporate(uint id) public view permissioned returns(address)  {
         return corporates[id].corpAddress;
     }
@@ -34,7 +38,7 @@ contract CorporateFactory {
         active = !active;
         return(active);
     }
-
+    
     modifier permissioned {
         require(msg.sender == owner, "Only the owner can access this function");
         _;
