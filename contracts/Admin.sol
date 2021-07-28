@@ -17,19 +17,19 @@ contract Admin {
         owner = msg.sender;
     }
 
-    function updateFundsPool(FundsPool pool) private {
+    function updateFundsPool(FundsPool pool) public {
         // make sure that this pool was created by the admin contract 
         require(owner == pool.admin(), "Pool was not created by the admin");
         fundsPool = pool;
     }
 
-    function updateCorporateFactory(CorporateFactory fac) private {
+    function updateCorporateFactory(CorporateFactory fac) public {
         // make sure that this pool was created by the admin contract 
         require(owner == fac.owner(), "Factory was not created by the admin");
         corporateFactory = fac;
     }
 
-    function updateReceiverFactory(ReceiverFactory fac) private {
+    function updateReceiverFactory(ReceiverFactory fac) public {
         // make sure that this pool was created by the admin contract 
         require(owner == fac.owner(), "Factory was not created by the admin");
         receiverFactory = fac;
