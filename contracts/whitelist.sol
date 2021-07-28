@@ -4,9 +4,11 @@ pragma solidity >=0.7.0 <0.9.0;
 contract whitelist {
 
     address public owner;
+    bytes32 public whiteListHash;
     
-    constructor() {
+    constructor(bytes32 whiteListHash_) {
         owner = msg.sender;
+        whiteListHash = whiteListHash_;
     }
 
     
