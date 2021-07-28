@@ -5,12 +5,12 @@ import "./ReceiverFactory.sol";
 contract Giver {
 
     GiverFactory public ownerGiver;
-    uint public funds;
+    address public fundsPoolAddress;
     event ValueGiven(address user, uint amount);
 
-    constructor(GiverFactory ownerGiver_, address funds_) {
+    constructor(GiverFactory ownerGiver_, address fundsPoolAddress_) {
         ownerGiver = ownerGiver_;
-        funds = funds_;
+        fundsPoolAddress = fundsPoolAddress_;
     }
 
     function addFunds(address ownerGiver_, uint amount) public {
@@ -21,10 +21,14 @@ contract Giver {
     function giveFunds(uint amount, address to_) public payable onlyOwner {
 
         if (this.balance >= amount) {
-            funds -= amount;
             payable(to_).transfer(amount);
 
         }
+    }
+
+    modifier onlyFundsPool() {
+        require(address(this) == fundsPoolAddress);
+        _;
     }
 
     modifier onlyOwner() {
