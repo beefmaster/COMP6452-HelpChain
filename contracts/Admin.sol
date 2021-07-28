@@ -13,28 +13,25 @@ contract Admin {
     address public owner;
 
 
-    constructor(FundsPool funds_, ReceiverFactory receiver_, CorporateFactory corp_) {
-        fundsPool = funds_;
-        receiverFactory = receiver_;
-        corporateFactory = corp_;
+    constructor() {
         owner = msg.sender;
     }
 
     function updateFundsPool(FundsPool pool) private {
         // make sure that this pool was created by the admin contract 
-        require(address(this) == pool.admin(), "Pool was not created by the admin");
+        require(owner == pool.admin(), "Pool was not created by the admin");
         fundsPool = pool;
     }
 
     function updateCorporateFactory(CorporateFactory fac) private {
         // make sure that this pool was created by the admin contract 
-        require(address(this) == fac.owner(), "Factory was not created by the admin");
+        require(owner == fac.owner(), "Factory was not created by the admin");
         corporateFactory = fac;
     }
 
     function updateReceiverFactory(ReceiverFactory fac) private {
         // make sure that this pool was created by the admin contract 
-        require(address(this) == fac.owner(), "Factory was not created by the admin");
+        require(owner == fac.owner(), "Factory was not created by the admin");
         receiverFactory = fac;
     }
     
@@ -56,8 +53,8 @@ contract FundsPool{
     uint public funds;
     event ValueReceived(address user, uint amount);
 
-    constructor(address admin_){
-        admin = admin_;
+    constructor(){
+        admin = msg.sender;
     }
 
     function distributeFunds(uint amount, address[] memory receivers) public onlyOwner{
