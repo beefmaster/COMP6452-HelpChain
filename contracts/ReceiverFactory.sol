@@ -10,6 +10,7 @@ contract Receiver {
     event ValueReceived(address user, uint amount);
 
 
+
     constructor(address ownerReceiver_, address fundsPoolAddress_) {
         ownerReceiver = ownerReceiver_;
         fundsPoolAddress = fundsPoolAddress_;
@@ -41,22 +42,35 @@ contract ReceiverFactory {
 
     address public fundsPool;
     address public owner;
+    Receiver[] public receiver_array;
+    mapping(address=> bool) public receivers;
 
     constructor(address fundsPool_) {
         fundsPool = fundsPool_;
         owner = msg.sender;
     }
 
-    Receiver[] receivers;
     function createreceiver() public onlyOwner returns (address) {
         Receiver child = new Receiver(address(this), address(fundsPool));
-        receivers.push(child);
+        receivers[address(child)] = true;
+        receiver_array.push(child);
         return address(child);
+    }
+
+    function checkReceiver(address toCheck) external view returns (bool){
+        if (receivers[toCheck] == true ){
+            return true;
+        }
+            return false;
+    }
+
+    function getNumReceivers() public view returns(uint){
+        return receiver_array.length;
     }
 
 
     modifier onlyOwner() {
-        require(msg.sender == owner);
+        require(msg.sender ==  owner);
         _;
     }
 
