@@ -1,15 +1,16 @@
 pragma solidity >=0.7.0 <0.9.0;
 import "./ReceiverFactory.sol";
+import "./Admin.sol";
 // Contract that creates givers
 // needs to contain an idenitifier
 contract Giver {
 
     GiverFactory public ownerGiver;
-    address public admin;
+    Admin public admin;
     address public fundsPoolAddress;
     event ValueGiven(address user, uint amount);
 
-    constructor(GiverFactory ownerGiver_, address fundsPoolAddress_, address admin_) {
+    constructor(GiverFactory ownerGiver_, address fundsPoolAddress_, Admin admin_) {
         ownerGiver = ownerGiver_;
         fundsPoolAddress = fundsPoolAddress_;
         admin = admin_;
@@ -41,18 +42,18 @@ contract Giver {
 contract GiverFactory {
 
     address public owner;
-    address public admin;
+    Admin public admin;
     address public fundsPool;
     mapping(address => bool) givers;
     uint public numberOfGivers;
 
-    constructor(address admin_) {
+    constructor(Admin admin_) {
         owner = msg.sender;
         admin  = admin_;
     }
 
     function creategiver() public onlyOwner returns (address) {
-        Giver child = new Giver(this, address(fundsPool));
+        Giver child = new Giver(this, address(fundsPool), admin);
         givers[address(child)]  = true;
         numberOfGivers += 1;
         return address(child);

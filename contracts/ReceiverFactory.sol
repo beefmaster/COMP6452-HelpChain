@@ -35,13 +35,13 @@ contract Receiver {
         require(address(this).balance >= tx_amount, "Receiver contract does not have enough funds");
 
         //get the Corporate parent of the subsidiary 
-        address corp = address(toSend.parent_());
+        Corporate corp = toSend.parent_();
         //get the address of the corporate Factory 
         CorporateFactory corp_fac = admin.corporateFactory();
         //check if the corporate is valid through the corporate factory
-        require(corp_fac.checkIfCorporateValid(toSend.parent_().corporate_id()) == true, "Not valid corporate ID");
+        require(corp_fac.checkIfCorporateValid(corp.corporate_id()) == true, "Not valid corporate ID");
         //check if the subsidiary is valid for the corporate 
-        require(Corporate(corp_fac.getCorporate(toSend.parent_().corporate_id())).checkIfSubsidiaryValid(address(toSend)) == true, "Not a valid subsidiary");
+        require(Corporate(corp_fac.getCorporate(corp.corporate_id())).checkIfSubsidiaryValid(address(toSend)) == true, "Not a valid subsidiary");
 
         // send the requested funds 
         payable(toSend).transfer(tx_amount);
