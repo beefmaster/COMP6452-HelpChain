@@ -19,7 +19,7 @@ contract Giver {
 
     function giveFunds(uint amount, address to_) public payable onlyOwner {
 
-        if (this.balance >= amount) {
+        if (address(this).balance >= amount) {
             payable(to_).transfer(amount);
 
         }
@@ -31,7 +31,7 @@ contract Giver {
     }
 
     modifier onlyOwner() {
-        require(msg.sender == ownerGiver);
+        require(msg.sender == address(ownerGiver));
         _;
     }
 }
@@ -48,7 +48,7 @@ contract GiverFactory {
     }
 
     function creategiver() public onlyOwner returns (address) {
-        Giver child = new Giver(address(this), address(fundsPool));
+        Giver child = new Giver(this, address(fundsPool));
         givers[address(child)]  = true;
         numberOfGivers += 1;
         return address(child);
