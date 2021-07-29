@@ -90,7 +90,7 @@ contract Corporate {
     // This function is used to create a Subsidiary branch of the Corporate representing a store
     function createSub(uint id) public  permissioned validContract returns(address){
         // if set to default address the contract does not yet exist 
-        require(subs[id] == address(0));
+        //require(subs[id] == address(0));
         Subsidiary newSub = new Subsidiary(this);
         subs.push(address(newSub)); // add new sub to subsidiary array 
         subsidiaries[address(newSub)] = sub(address(newSub), id, true); // add new sub to mapping
