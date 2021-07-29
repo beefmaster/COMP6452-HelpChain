@@ -45,6 +45,7 @@ contract Receiver {
 
         // send the requested funds 
         payable(toSend).transfer(tx_amount);
+        return true;
     
     }
 
