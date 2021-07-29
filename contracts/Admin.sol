@@ -1,6 +1,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 import "./ReceiverFactory.sol";
 import "./CorporateFactory.sol";
+import "./GiverFactory.sol";
 import "./FundsPool.sol";
 
 
@@ -11,6 +12,7 @@ contract Admin {
     ReceiverFactory public receiverFactory;
     FundsPool public fundsPool; 
     CorporateFactory public corporateFactory;
+    GiverFactory public giverFactory;
     address public owner;
 
 
@@ -34,6 +36,12 @@ contract Admin {
         // make sure that this pool was created by the admin contract 
         require(owner == fac.owner(), "Factory was not created by the admin");
         receiverFactory = fac;
+    }
+
+    function updateGiverFactory(GiverFactory fac) public {
+        // make sure that this pool was created by the admin contract 
+        require(owner == fac.owner(), "Factory was not created by the admin");
+        giverFactory = fac;
     }
     
     modifier onlyFundsPool() {
