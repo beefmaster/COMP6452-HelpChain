@@ -40,6 +40,7 @@ contract CorporateFactory {
 
     function disableCorporate(uint id) public permissioned activeContract returns (bool){
         corporates[id].valid = false;
+        return true;
     }
 
     function checkIfCorporateValid(uint id) public view activeContract returns (bool){

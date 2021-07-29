@@ -24,7 +24,7 @@ module.exports = async function(deployer) {
     console.log(AdminDeployer.address)
     FundsPoolDeployer = await deployer.deploy(FundsPool);
     CorporateFactoryDeployer = await deployer.deploy(CorporateFactory, AdminD.address);
-    ReceiverFactoryDeployer = await deployer.deploy(ReceiverFactory, AdminD.address, FundsPoolDeployer.address);
+    ReceiverFactoryDeployer = await deployer.deploy(ReceiverFactory, AdminD.address);
     GiverFactoryDeployer = await deployer.deploy(GiverFactory, AdminD.address);
 
     // let WhiteListDeployer = await deployer.deploy(WhiteList);
