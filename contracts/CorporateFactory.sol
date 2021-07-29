@@ -77,7 +77,6 @@ contract Corporate {
         bool valid;
     }
 
-
     // allows for an owner i.e. corporate to be passed into the constructor 
     constructor(address owner_, Admin admin_, string memory name){
         owner = owner_;
@@ -90,14 +89,14 @@ contract Corporate {
     // This function is used to create a Subsidiary branch of the Corporate representing a store
     function createSub(uint id) public  permissioned validContract returns(address){
         // if set to default address the contract does not yet exist 
-        //require(subs[id] == address(0));
+        // require(subs[id] == address(0));
         Subsidiary newSub = new Subsidiary(this);
         subs.push(address(newSub)); // add new sub to subsidiary array 
         subsidiaries[address(newSub)] = sub(address(newSub), id, true); // add new sub to mapping
         return address(newSub);
     }
 
-    // returns the subsidiary struct
+    // Returns the subsidiary struct
     function getSubContract(uint id) public view validContract returns(address)  {
         return subs[id];
     }
@@ -107,13 +106,13 @@ contract Corporate {
         return subsidiaries[toCheck].valid;
     }
 
-    // updates the whiteList 
+    // Updates the whiteList 
     function updateWhitelist(Whitelist whitelist_) public permissioned validContract {
         require(whitelist_.owner() == owner || whitelist.owner() == creator_, "Whitelist not created by known party");
         whitelist = whitelist_;
     }
 
-    //disable the Corporate
+    // Disable the Corporate
     function disableCorporate() public permissioned validContract returns(bool){
         valid = false;
         return valid;
@@ -132,10 +131,10 @@ contract Corporate {
 
 
 
-// This contract represent a Subsidiary branch of a corporate 
+// This contract represents a Subsidiary branch of a Corporate partner
 contract Subsidiary {
-    Corporate public parent_; // Corporate Contract
-    uint amount; //Balanace
+    Corporate public parent_;   // Corporate Contract
+    uint amount;                // Subsidiary balance 
     mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
 
@@ -147,7 +146,7 @@ contract Subsidiary {
         string txLink;
     }
 
-    // event that triggers the off-chain oracle
+    // Event that triggers the off-chain oracle
     event TransactionRequest (
         uint txId,
         address receiverId,
@@ -163,16 +162,15 @@ contract Subsidiary {
         amount = 0;
     }
 
-    // need to make sure no possibility for double spend
-    // Will reset to zero and prevent withdrawl whilst the send transaction is processed.
+    // Ensure there is no double spending
+    // Will reset to zero and prevent withdrawal whilst the send transaction is being processed.
     function getTake() public payable accountsAccess returns(bool)  {
         uint prevAmount = amount;
         amount = 0;
-        return payable(address(parent_)).send(prevAmount); // need to write a fallback function if this fails.
+        return payable(address(parent_)).send(prevAmount);   
     }
 
-    // Oracle end point.
-    // reassess this function as it always returns true.
+    // Oracle end point for inserting transaction details into blockchain and recording the mapping
     function insertTransaction(uint txId, address receiverId, uint txAmount) restricted public returns(bool) {
         require(receiverId.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
         emit TransactionRequest(txId, receiverId, txAmount);
@@ -180,16 +178,18 @@ contract Subsidiary {
         return true;
     }
 
-    // provides functionality to receive funds
+    // Provides functionality to receive funds for the subsidiary
     receive() external payable{
         emit ValueReceived(msg.sender, msg.value);
     }
     
+
     modifier restricted {
         require(msg.sender == address(parent_) || permissionedAddress[msg.sender] == true);
         _;
     }
 
+    // Restrict account access
     modifier accountsAccess {
         require(msg.sender == address(parent_));
         _;
