@@ -139,15 +139,23 @@ contract Subsidiary {
     mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
 
-
-    struct transaction{
-        uint id; 
-        address receiver_id;
-        uint amount;
+    // Transaction struct to be sent to the off-chain oracle 
+    struct Transaction {
+        uint txId; 
+        address receiverId;
+        uint txAmount;
+        string txLink;
     }
 
+    // event that triggers the off-chain oracle
+    event TransactionRequest (
+        uint txId,
+        address receiverId,
+        uint txAmount
+    );
+
     // transaction id to person id
-    mapping(uint => transaction) transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
+    mapping(uint => Transaction) transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
     uint numOfTransactions;
 
     constructor(Corporate corp) {
@@ -165,9 +173,10 @@ contract Subsidiary {
 
     // Oracle end point.
     // reassess this function as it always returns true.
-    function insertTransaction(uint transID, address person_id, uint tx_amount) restricted public returns(bool) {
-        require(person_id.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
-        transactions[transID] = transaction(transID, person_id, tx_amount);
+    function insertTransaction(uint txId, address receiverId, uint txAmount) restricted public returns(bool) {
+        require(receiverId.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
+        emit TransactionRequest(txId, receiverId, txAmount);
+        transactions[txId] = Transaction(txId, receiverId, txAmount, "http://mumboJumbo.jpg");
         return true;
     }
 
