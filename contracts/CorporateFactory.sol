@@ -26,13 +26,23 @@ contract CorporateFactory {
         return true;
     }
 
-    function getCorporate(uint id) public view permissioned returns(address)  {
+    function getCorporate(uint id) public view permissioned activeContract returns(address)  {
         return corporates[id].corpAddress;
     }
 
     function toggleContractActivation() public permissioned returns (bool){
         active = !active;
         return(active);
+    }
+
+    function disableCorporate(uint id) public permissioned activeContract returns (bool){
+        corporates[id].valid = false;
+    }
+
+    function checkIfCorporateValid(uint id) public view activeContract returns (bool){
+        require(corporates[id].corpAddress != address(0), 'Not a valid corporate');
+        return corporates[id].valid;
+
     }
     
     modifier permissioned {
@@ -41,7 +51,7 @@ contract CorporateFactory {
     }
 
     modifier activeContract{
-        require(active = true, "Contract no longer active");
+        require(active == true, "Contract no longer active");
         _;
     }
 }
@@ -49,15 +59,17 @@ contract CorporateFactory {
 contract Corporate {
     address public creator_; // creator of the contract
     address public owner; // owner of the contract i.e the corporate
+    uint public corporate_id;
     string public corporate_name_; // name of the contract
     mapping(address => sub) public subsidiaries; // a mapping of addresses to the sub struct.
     address[] public subs; // could make this into a struct so the id can be found easily.
     Whitelist public whitelist; //whitelist associated with the corporate
+    bool valid; //checks if the contract is valid 
     
     struct sub {
         address subAddress;
         uint id;
-        bool init;
+        bool valid;
     }
 
 
@@ -65,11 +77,12 @@ contract Corporate {
     constructor(address owner_, string memory name){
         owner = owner_;
         creator_ = msg.sender;
-        corporate_name_ = name;     
+        corporate_name_ = name; 
+        valid = true;    
     }
 
     // This function is used to create a Subsidiary branch of the Corporate representing a store
-    function createSub(uint id) public  permissioned returns(bool){
+    function createSub(uint id) public  permissioned validContract returns(bool){
         // if set to default address the contract does not yet exist 
         require(getSubContract(id) != address(0));
         Subsidiary newSub = new Subsidiary(address(this));
@@ -79,18 +92,33 @@ contract Corporate {
     }
 
     // returns the subsidiary struct
-    function getSubContract(uint id) public view permissioned returns(address)  {
+    function getSubContract(uint id) public view permissioned validContract returns(address)  {
         return subs[id];
     }
 
+    function checkIfSubsidiaryValid(address toCheck) public view validContract returns(bool){
+        require(subsidiaries[toCheck].subAddress != address(0), "Not a subsidiary address");
+        return subsidiaries[toCheck].valid;
+    }
+
     // updates the whiteList 
-    function updateWhitelist(Whitelist whitelist_) public permissioned {
+    function updateWhitelist(Whitelist whitelist_) public permissioned validContract {
         require(whitelist_.owner() == owner || whitelist.owner() == creator_, "Whitelist not created by known party");
         whitelist = whitelist_;
     }
 
+    //disable the Corporate
+    function disableCorporate() public permissioned validContract returns(bool){
+        valid = false;
+    }
+
     modifier permissioned {
         require(msg.sender == owner || msg.sender == creator_);
+        _;
+    }
+
+    modifier validContract {
+        require(valid == true);
         _;
     }
 }
@@ -99,14 +127,21 @@ contract Corporate {
 
 // This contract represent a Subsidiary branch of a corporate 
 contract Subsidiary {
-    address payable parent_; // Corporate Contract
+    address payable public parent_; // Corporate Contract
     uint amount; //Balanace
-    mapping(address => bool) permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
+    mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
 
-    // transaction id to person id
-    mapping(uint => uint) transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
 
+    struct transaction{
+        uint id; 
+        address receiver_id;
+        uint amount;
+    }
+
+    // transaction id to person id
+    mapping(uint => transaction) transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
+    uint numOfTransactions;
     constructor(address parent) {
         parent_ = payable(parent);
         amount = 0;
@@ -122,8 +157,9 @@ contract Subsidiary {
 
     // Oracle end point.
     // reassess this function as it always returns true.
-    function insertTransaction(uint transID, uint person_id) restricted public returns(bool) {
-        transactions[transID] = person_id;
+    function insertTransaction(uint transID, address person_id, uint tx_amount) restricted public returns(bool) {
+        require(person_id.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
+        transactions[transID] = transaction(transID, person_id, tx_amount);
         return true;
     }
 
