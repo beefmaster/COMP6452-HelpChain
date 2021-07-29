@@ -5,12 +5,14 @@ import "./ReceiverFactory.sol";
 contract Giver {
 
     GiverFactory public ownerGiver;
+    address public admin;
     address public fundsPoolAddress;
     event ValueGiven(address user, uint amount);
 
-    constructor(GiverFactory ownerGiver_, address fundsPoolAddress_) {
+    constructor(GiverFactory ownerGiver_, address fundsPoolAddress_, address admin_) {
         ownerGiver = ownerGiver_;
         fundsPoolAddress = fundsPoolAddress_;
+        admin = admin_;
     }
 
     function addFunds(address ownerGiver_, uint amount) public {
@@ -39,12 +41,14 @@ contract Giver {
 contract GiverFactory {
 
     address public owner;
+    address public admin;
     address public fundsPool;
     mapping(address => bool) givers;
     uint public numberOfGivers;
 
-    constructor() {
+    constructor(address admin_) {
         owner = msg.sender;
+        admin  = admin_;
     }
 
     function creategiver() public onlyOwner returns (address) {

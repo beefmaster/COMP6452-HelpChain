@@ -5,17 +5,15 @@ import "./CorporateFactory.sol";
 contract Receiver {
 
     address public ownerReceiver;
-    address public owner;
-    address public fundsPoolAddress;
+    address public admin;
     uint public funds;
     event ValueReceived(address user, uint amount);
 
 
 
-    constructor(address owner_, address fundsPoolAddress_) {
-        owner = owner_;
+    constructor(address admin_) {
+        admin = admin_;
         ownerReceiver = msg.sender;
-        fundsPoolAddress = fundsPoolAddress_;
     }
 
     // Gives the receiver the funds
@@ -36,37 +34,38 @@ contract Receiver {
 
         //get the Corporate parent of the subsidiary 
         address corp = address(toSend.parent_());
-
+        //get the address of the corporate Factory 
+        address corp_fac = address(admin.corporateFactory());
         //check if the corporate is valid through the corporate factory
+        require(corp_fac.checkIfCorporateValid(toSend.parent_.corporate_id) == true, "Not valid corporate ID");
+        //check if the subsidiary is valid for the corporate 
+        require(corp_fac.getCorporate(toSend.parent_.corporate_id).checkIfSubsidiaryValid(address(toSend)) == true, "Not a valid subsidiary");
 
-    }
-
-    modifier onlyFundsPool() {
-        require(msg.sender == fundsPoolAddress);
-        _;
+        // send the requested funds 
+        payable(toSend).send(tx_amount);
+    
     }
 
     modifier onlyOwner() {
-        require(msg.sender == ownerReceiver || msg.sender == owner);
+        require(msg.sender == ownerReceiver || msg.sender == admin);
         _;
     }
 }
 
 contract ReceiverFactory {
-
-    address public fundsPool;
     address public owner;
+    address public admin;
     Receiver[] public receiver_array;
     mapping(address=> bool) public receivers;
     address public corporateFactory;
 
-    constructor(address fundsPool_) {
-        fundsPool = fundsPool_;
+    constructor(address admin_) {
+        admin = admin_;
         owner = msg.sender;
     }
 
     function createreceiver() public onlyOwner returns (address) {
-        Receiver child = new Receiver(address(this), address(fundsPool));
+        Receiver child = new Receiver(this.admin);
         receivers[address(child)] = true;
         receiver_array.push(child);
         return address(child);
@@ -92,7 +91,7 @@ contract ReceiverFactory {
     }
 
     modifier onlyOwner() {
-        require(msg.sender ==  owner);
+        require(msg.sender ==  owner || msg.sender == admin);
         _;
     }
 
