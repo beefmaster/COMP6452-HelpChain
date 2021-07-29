@@ -67,6 +67,7 @@ contract ReceiverFactory {
         owner = msg.sender;
     }
 
+    
     function createreceiver() public onlyOwner returns (address) {
         Receiver child = new Receiver(admin);
         receivers[address(child)] = true;
