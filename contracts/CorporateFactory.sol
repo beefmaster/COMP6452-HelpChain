@@ -22,11 +22,11 @@ contract CorporateFactory {
         admin = admin_;
     }
 
-    function createCorp(string memory corpName) public  permissioned activeContract returns(bool){
+    function createCorp(string memory corpName) public  permissioned activeContract returns(address){
         Corporate newCorp = new Corporate(owner,admin,corpName);
         corporates[numCorps] = corporate(address(newCorp), numCorps, true);
         numCorps += 1;
-        return true;
+        return address(newCorp);
     }
 
     function getCorporate(uint id) public view activeContract returns(address)  {
@@ -88,13 +88,13 @@ contract Corporate {
     }
 
     // This function is used to create a Subsidiary branch of the Corporate representing a store
-    function createSub(uint id) public  permissioned validContract returns(bool){
+    function createSub(uint id) public  permissioned validContract returns(address){
         // if set to default address the contract does not yet exist 
-        require(getSubContract(id) != address(0));
+        require(subs[id] == address(0));
         Subsidiary newSub = new Subsidiary(this);
         subs.push(address(newSub)); // add new sub to subsidiary array 
         subsidiaries[address(newSub)] = sub(address(newSub), id, true); // add new sub to mapping
-        return true;
+        return address(newSub);
     }
 
     // returns the subsidiary struct
