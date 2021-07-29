@@ -5,6 +5,7 @@ import "./Whitelist.sol";
 
 contract CorporateFactory { 
     address public owner; // owner address 
+    address public admin;
     mapping(uint => corporate) public corporates;
     uint numCorps; // a mapping of contract ids to the corporate struct.
     bool active = true;
@@ -15,18 +16,19 @@ contract CorporateFactory {
         bool valid;
     }
 
-    constructor() {
+    constructor(address admin_) {
         owner = msg.sender;
+        admin = admin_;
     }
 
     function createCorp(string memory corpName) public  permissioned activeContract returns(bool){
-        Corporate newCorp = new Corporate(owner,corpName);
+        Corporate newCorp = new Corporate(owner,admin,corpName);
         corporates[numCorps] = corporate(address(newCorp), numCorps, true);
         numCorps += 1;
         return true;
     }
 
-    function getCorporate(uint id) public view permissioned activeContract returns(address)  {
+    function getCorporate(uint id) public view activeContract returns(address)  {
         return corporates[id].corpAddress;
     }
 
@@ -46,7 +48,7 @@ contract CorporateFactory {
     }
     
     modifier permissioned {
-        require(msg.sender == owner, "Only the owner can access this function");
+        require(msg.sender == owner || msg.sender == admin, "Only the owner/admin can access this function");
         _;
     }
 
@@ -59,6 +61,7 @@ contract CorporateFactory {
 contract Corporate {
     address public creator_; // creator of the contract
     address public owner; // owner of the contract i.e the corporate
+    address public admin;
     uint public corporate_id;
     string public corporate_name_; // name of the contract
     mapping(address => sub) public subsidiaries; // a mapping of addresses to the sub struct.
@@ -74,8 +77,9 @@ contract Corporate {
 
 
     // allows for an owner i.e. corporate to be passed into the constructor 
-    constructor(address owner_, string memory name){
+    constructor(address owner_, address admin_, string memory name){
         owner = owner_;
+        admin = admin_;
         creator_ = msg.sender;
         corporate_name_ = name; 
         valid = true;    
@@ -92,7 +96,7 @@ contract Corporate {
     }
 
     // returns the subsidiary struct
-    function getSubContract(uint id) public view permissioned validContract returns(address)  {
+    function getSubContract(uint id) public view validContract returns(address)  {
         return subs[id];
     }
 
@@ -110,6 +114,7 @@ contract Corporate {
     //disable the Corporate
     function disableCorporate() public permissioned validContract returns(bool){
         valid = false;
+        return valid;
     }
 
     modifier permissioned {

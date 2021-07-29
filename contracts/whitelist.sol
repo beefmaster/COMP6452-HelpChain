@@ -10,8 +10,6 @@ contract Whitelist {
         owner = msg.sender;
         whiteListHash = whiteListHash_;
     }
-
-    
-
+   
 
 }
