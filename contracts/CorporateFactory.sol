@@ -3,36 +3,43 @@ pragma solidity >=0.7.0 <0.9.0;
 import "./Whitelist.sol";
 import "./Admin.sol";
 
-
+/*
+    This class is a factory class used to produce instances of Corporates, Corporates will act as a parent class to Subsidiary 
+*/
 contract CorporateFactory { 
     address public owner; // owner address 
-    Admin public admin;
-    mapping(uint => corporate) public corporates;
-    uint numCorps; // a mapping of contract ids to the corporate struct.
-    bool active = true;
+    Admin public admin; // admin contract
+    mapping(uint => corporate) public corporates; //list of corporates 
+    uint numCorps; // number of corporates
+    bool active = true; //whether this contract is active 
 
+    // Struct used to store corporates in the mapping
     struct corporate {
         address corpAddress;
         uint id;
         bool valid;
     }
 
+    // The constructor links an associated Admin contract 
     constructor(Admin admin_) {
         owner = msg.sender;
         admin = admin_;
     }
 
+    //function to create a new Corporate with name <corpName> 
     function createCorp(string memory corpName) public  permissioned activeContract returns(address){
-        Corporate newCorp = new Corporate(owner,admin,corpName);
-        corporates[numCorps] = corporate(address(newCorp), numCorps, true);
+        Corporate newCorp = new Corporate(admin,corpName); // passes parent's admin & corp name
+        corporates[numCorps] = corporate(address(newCorp), numCorps, true); // add the corporate to the last spot in the list 
         numCorps += 1;
         return address(newCorp);
     }
 
+    // get corporate address given id 
     function getCorporate(uint id) public view activeContract returns(address)  {
         return corporates[id].corpAddress;
     }
 
+    // This function is used to disable child Corporate contracts 
     function toggleContractActivation() public permissioned returns (bool){
         active = !active;
         return(active);
@@ -61,7 +68,6 @@ contract CorporateFactory {
 }
 
 contract Corporate {
-    address public creator_; // creator of the contract
     address public owner; // owner of the contract i.e the corporate
     Admin public admin;
     uint public corporate_id;
@@ -79,10 +85,9 @@ contract Corporate {
 
 
     // allows for an owner i.e. corporate to be passed into the constructor 
-    constructor(address owner_, Admin admin_, string memory name){
-        owner = owner_;
+    constructor(Admin admin_, string memory name){
         admin = admin_;
-        creator_ = msg.sender;
+        owner = msg.sender;
         corporate_name_ = name; 
         valid = true;    
     }
