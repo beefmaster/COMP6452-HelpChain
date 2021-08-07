@@ -27,8 +27,8 @@ contract CorporateFactory {
     }
 
     //function to create a new Corporate with name <corpName> 
-    function createCorp(string memory corpName) public  permissioned activeContract returns(address){
-        Corporate newCorp = new Corporate(admin,corpName); // passes parent's admin & corp name
+    function createCorp(string memory corpName, address owner_) public  permissioned activeContract returns(address){
+        Corporate newCorp = new Corporate(admin,corpName, owner_, numCorps); // passes parent's admin, address of owner and corp name
         corporates[numCorps] = corporate(address(newCorp), numCorps, true); // add the corporate to the last spot in the list 
         numCorps += 1;
         return address(newCorp);
@@ -39,25 +39,30 @@ contract CorporateFactory {
         return corporates[id].corpAddress;
     }
 
-    // This function is used to disable child Corporate contracts 
-    function toggleContractActivation() public permissioned returns (bool){
+    // This function is used by the Admin to activate/disable the Corporate Factory contracts 
+    function toggleContractActivation() public adminOnly returns (bool){
         active = !active;
         return(active);
     }
 
-    function disableCorporate(uint id) public permissioned activeContract returns (bool){
-        corporates[id].valid = false;
-        return true;
+    // This function is used to mark a corporate as invalid
+    function disableCorporate(uint id) public permissioned activeContract{
+        require(checkIfCorporateValid(id) == true); // check that it is still valid
+        Corporate(corporates[id].corpAddress).disableCorporate(); // disable the Corporate
     }
 
     function checkIfCorporateValid(uint id) public view activeContract returns (bool){
-        require(corporates[id].corpAddress != address(0), 'Not a valid corporate');
-        return corporates[id].valid;
+        require(corporates[id].corpAddress != address(0), 'Not a listed corporate'); //check if corporate in factory list
+        return Corporate(corporates[id].corpAddress).valid(); // return if the contract is valid 
 
     }
     
+    modifier adminOnly {
+        require(msg.sender == admin.owner(), "Only the admin can access this function");
+        _;
+    }
     modifier permissioned {
-        require(msg.sender == owner || msg.sender == address(admin), "Only the owner/admin can access this function");
+        require(msg.sender == owner || msg.sender == admin.owner(), "Only the owner/admin can access this function");
         _;
     }
 
@@ -68,14 +73,15 @@ contract CorporateFactory {
 }
 
 contract Corporate {
-    address public owner; // owner of the contract i.e the corporate
-    Admin public admin;
-    uint public corporate_id;
-    string public corporate_name_; // name of the contract
+    address public owner; // owner of the contract e.g. a Corporates own address
+    Admin public admin; // admin of the system
+    CorporateFactory parent; // Corporate Factory this was created from 
+    uint public corporate_id; // Corporate ID assigned to 
+    string public corporate_name_; // name of the Corporate
     mapping(address => sub) public subsidiaries; // a mapping of addresses to the sub struct.
     address[] public subs; // could make this into a struct so the id can be found easily.
     Whitelist public whitelist; //whitelist associated with the corporate
-    bool valid; //checks if the contract is valid 
+    bool public valid; //checks if the contract is valid 
     
     struct sub {
         address subAddress;
@@ -85,17 +91,17 @@ contract Corporate {
 
 
     // allows for an owner i.e. corporate to be passed into the constructor 
-    constructor(Admin admin_, string memory name){
+    constructor(Admin admin_,string memory name, address owner_, uint corp_id_){
         admin = admin_;
-        owner = msg.sender;
+        owner = owner_;
         corporate_name_ = name; 
+        corporate_id = corp_id_;
+        parent = CorporateFactory(msg.sender);
         valid = true;    
     }
 
     // This function is used to create a Subsidiary branch of the Corporate representing a store
     function createSub(uint id) public  permissioned validContract returns(address){
-        // if set to default address the contract does not yet exist 
-        //require(subs[id] == address(0));
         Subsidiary newSub = new Subsidiary(this);
         subs.push(address(newSub)); // add new sub to subsidiary array 
         subsidiaries[address(newSub)] = sub(address(newSub), id, true); // add new sub to mapping
@@ -111,10 +117,14 @@ contract Corporate {
         require(subsidiaries[toCheck].subAddress != address(0), "Not a subsidiary address");
         return subsidiaries[toCheck].valid;
     }
+    
+    function disableContract() public permissioned validContract{
+        valid = false;
+    }
 
     // updates the whiteList 
     function updateWhitelist(Whitelist whitelist_) public permissioned validContract {
-        require(whitelist_.owner() == owner || whitelist.owner() == creator_, "Whitelist not created by known party");
+        require(whitelist_.owner() == owner || whitelist.owner() == admin.owner(), "Whitelist not created by known party");
         whitelist = whitelist_;
     }
 
@@ -124,10 +134,15 @@ contract Corporate {
         return valid;
     }
 
-    modifier permissioned {
-        require(msg.sender == owner || msg.sender == creator_);
+    modifier adminOnly {
+        require(msg.sender == admin.owner(), "Only the admin can access this function");
         _;
     }
+    modifier permissioned {
+        require(msg.sender == owner || msg.sender == admin.owner() || msg.sender == address(parent), "Only the owner/admin/parent can access this function");
+        _;
+    }
+    
 
     modifier validContract {
         require(valid == true);
