@@ -56,10 +56,10 @@ contract Receiver {
 }
 
 contract ReceiverFactory {
-    address public owner;
-    Admin public admin;
-    Receiver[] public receiver_array;
-    mapping(address=> bool) public receivers;
+    address public owner; // Owner of the contract
+    Admin public admin; // Associated Admin
+    Receiver[] public receiver_array; // Array of receivers
+    mapping(address=> bool) public receivers; 
     address public corporateFactory;
 
     constructor(Admin admin_) {
@@ -67,14 +67,18 @@ contract ReceiverFactory {
         owner = msg.sender;
     }
 
-    
+    // This function creates a recevier contract
     function createreceiver() public onlyOwner returns (address) {
+        // passes the admin to the receiver
         Receiver child = new Receiver(admin);
+        // marks the receiver as valid 
         receivers[address(child)] = true;
+        // adds it to the array of receivers
         receiver_array.push(child);
         return address(child);
     }
 
+    // checks if receiver exists
     function checkReceiver(address toCheck) external view returns (bool){
         if (receivers[toCheck] == true ){
             return true;
@@ -82,18 +86,22 @@ contract ReceiverFactory {
             return false;
     }
 
+    // updates associated Corporate Factory
     function updateCorporateFactory(address corp) public onlyOwner {
         corporateFactory = corp;
     }
 
+    // gets a Receiver at index
     function getReceiver(uint index) public view returns(address){
         return address(receiver_array[index]);
     }
 
+    // Returns total number of receivers
     function getNumOfReceivers() public view returns(uint){
         return receiver_array.length;
     }
 
+    // checks if valid sender
     modifier onlyOwner() {
         require(msg.sender ==  owner || msg.sender == address(admin));
         _;

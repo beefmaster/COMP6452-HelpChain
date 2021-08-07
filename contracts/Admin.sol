@@ -5,8 +5,7 @@ import "./GiverFactory.sol";
 import "./FundsPool.sol";
 
 
-// Contract that funds are received at
-// needs to contain an idenitifier
+// Contract that is the central point of truth in the system and creates main factories. 
 contract Admin {
 
     ReceiverFactory public receiverFactory;

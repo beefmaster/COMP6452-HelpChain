@@ -3,54 +3,66 @@ pragma solidity >=0.7.0 <0.9.0;
 import "./Whitelist.sol";
 import "./Admin.sol";
 
-
+/*
+    This class is a factory class used to produce instances of Corporates, Corporates will act as a parent class to Subsidiary 
+*/
 contract CorporateFactory { 
     address public owner; // owner address 
-    Admin public admin;
-    mapping(uint => corporate) public corporates;
-    uint numCorps; // a mapping of contract ids to the corporate struct.
-    bool active = true;
+    Admin public admin; // admin contract
+    mapping(uint => corporate) public corporates; //list of corporates 
+    uint numCorps; // number of corporates
+    bool active = true; //whether this contract is active 
 
+    // Struct used to store corporates in the mapping
     struct corporate {
         address corpAddress;
         uint id;
         bool valid;
     }
 
+    // The constructor links an associated Admin contract 
     constructor(Admin admin_) {
         owner = msg.sender;
         admin = admin_;
     }
 
-    function createCorp(string memory corpName) public  permissioned activeContract returns(address){
-        Corporate newCorp = new Corporate(owner,admin,corpName);
-        corporates[numCorps] = corporate(address(newCorp), numCorps, true);
+    //function to create a new Corporate with name <corpName> 
+    function createCorp(string memory corpName, address owner_) public  permissioned activeContract returns(address){
+        Corporate newCorp = new Corporate(admin,corpName, owner_, numCorps); // passes parent's admin, address of owner and corp name
+        corporates[numCorps] = corporate(address(newCorp), numCorps, true); // add the corporate to the last spot in the list 
         numCorps += 1;
         return address(newCorp);
     }
 
+    // get corporate address given id 
     function getCorporate(uint id) public view activeContract returns(address)  {
         return corporates[id].corpAddress;
     }
 
-    function toggleContractActivation() public permissioned returns (bool){
+    // This function is used by the Admin to activate/disable the Corporate Factory contracts 
+    function toggleContractActivation() public adminOnly returns (bool){
         active = !active;
         return(active);
     }
 
-    function disableCorporate(uint id) public permissioned activeContract returns (bool){
-        corporates[id].valid = false;
-        return true;
+    // This function is used to mark a corporate as invalid
+    function disableCorporate(uint id) public permissioned activeContract{
+        require(checkIfCorporateValid(id) == true); // check that it is still valid
+        Corporate(corporates[id].corpAddress).disableCorporate(); // disable the Corporate
     }
 
     function checkIfCorporateValid(uint id) public view activeContract returns (bool){
-        require(corporates[id].corpAddress != address(0), 'Not a valid corporate');
-        return corporates[id].valid;
+        require(corporates[id].corpAddress != address(0), 'Not a listed corporate'); //check if corporate in factory list
+        return Corporate(corporates[id].corpAddress).valid(); // return if the contract is valid 
 
     }
     
+    modifier adminOnly {
+        require(msg.sender == admin.owner(), "Only the admin can access this function");
+        _;
+    }
     modifier permissioned {
-        require(msg.sender == owner || msg.sender == address(admin), "Only the owner/admin can access this function");
+        require(msg.sender == owner || msg.sender == admin.owner(), "Only the owner/admin can access this function");
         _;
     }
 
@@ -61,15 +73,16 @@ contract CorporateFactory {
 }
 
 contract Corporate {
-    address public creator_; // creator of the contract
-    address public owner; // owner of the contract i.e the corporate
-    Admin public admin;
-    uint public corporate_id;
-    string public corporate_name_; // name of the contract
+    address public owner; // owner of the contract e.g. a Corporates own address
+    Admin public admin; // admin of the system
+    CorporateFactory parent; // Corporate Factory this was created from 
+    
+    uint public corporate_id; // Corporate ID assigned to 
+    string public corporate_name_; // name of the Corporate
     mapping(address => sub) public subsidiaries; // a mapping of addresses to the sub struct.
     address[] public subs; // could make this into a struct so the id can be found easily.
     Whitelist public whitelist; //whitelist associated with the corporate
-    bool valid; //checks if the contract is valid 
+    bool public valid; //checks if the contract is valid 
     
     struct sub {
         address subAddress;
@@ -78,19 +91,18 @@ contract Corporate {
     }
 
     // allows for an owner i.e. corporate to be passed into the constructor 
-    constructor(address owner_, Admin admin_, string memory name){
-        owner = owner_;
+    constructor(Admin admin_,string memory name, address owner_, uint corp_id_){
         admin = admin_;
-        creator_ = msg.sender;
+        owner = owner_;
         corporate_name_ = name; 
+        corporate_id = corp_id_;
+        parent = CorporateFactory(msg.sender);
         valid = true;    
     }
 
     // This function is used to create a Subsidiary branch of the Corporate representing a store
     function createSub(uint id) public  permissioned validContract returns(address){
-        // if set to default address the contract does not yet exist 
-        // require(subs[id] == address(0));
-        Subsidiary newSub = new Subsidiary(this);
+        Subsidiary newSub = new Subsidiary(admin, owner);
         subs.push(address(newSub)); // add new sub to subsidiary array 
         subsidiaries[address(newSub)] = sub(address(newSub), id, true); // add new sub to mapping
         return address(newSub);
@@ -105,10 +117,14 @@ contract Corporate {
         require(subsidiaries[toCheck].subAddress != address(0), "Not a subsidiary address");
         return subsidiaries[toCheck].valid;
     }
+    
+    function disableContract() public permissioned validContract{
+        valid = false;
+    }
 
     // Updates the whiteList 
     function updateWhitelist(Whitelist whitelist_) public permissioned validContract {
-        require(whitelist_.owner() == owner || whitelist.owner() == creator_, "Whitelist not created by known party");
+        require(whitelist_.owner() == owner || whitelist.owner() == admin.owner(), "Whitelist not created by known party");
         whitelist = whitelist_;
     }
 
@@ -118,10 +134,15 @@ contract Corporate {
         return valid;
     }
 
-    modifier permissioned {
-        require(msg.sender == owner || msg.sender == creator_);
+    modifier adminOnly {
+        require(msg.sender == admin.owner(), "Only the admin can access this function");
         _;
     }
+    modifier permissioned {
+        require(msg.sender == owner || msg.sender == admin.owner() || msg.sender == address(parent), "Only the owner/admin/parent can access this function");
+        _;
+    }
+    
 
     modifier validContract {
         require(valid == true);
@@ -133,8 +154,11 @@ contract Corporate {
 
 // This contract represents a Subsidiary branch of a Corporate partner
 contract Subsidiary {
-    Corporate public parent_;   // Corporate Contract
-    uint amount;                // Subsidiary balance 
+    Corporate public parent_; // Corporate Contract
+    Admin public admin; //Admin
+    address public owner; //Corporate owner address
+    
+    uint amount; //Balanace
     mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
 
@@ -157,9 +181,11 @@ contract Subsidiary {
     mapping(uint => Transaction) transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
     uint numOfTransactions;
 
-    constructor(Corporate corp) {
-        parent_ = corp;
-        amount = 0;
+    constructor(Admin admin_, address owner_) {
+        parent_ = Corporate(msg.sender);
+        admin = admin_;
+        owner = owner_;
+        amount = this.balance;
     }
 
     // Ensure there is no double spending
