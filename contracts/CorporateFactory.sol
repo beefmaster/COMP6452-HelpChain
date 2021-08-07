@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.7.0 <0.9.0;
 
 import "./Whitelist.sol";
@@ -190,6 +191,15 @@ contract Subsidiary {
         amount = address(this).balance;
         valid = true;
     }
+    //testing oracle
+    event CallbackInsertTX();
+
+    function setInsertTX(uint value) public returns (uint){
+        // require(ownership);
+        amount = value;
+        return value;
+    }
+
 
     // need to make sure no possibility for double spend
     // Will reset to zero and prevent withdrawl whilst the send transaction is processed.
@@ -202,8 +212,8 @@ contract Subsidiary {
     // Oracle end point for inserting transaction details into blockchain and recording the mapping
     function insertTransaction(uint txId, address receiverId, uint txAmount) restricted accountValid public returns(bool) {
         require(receiverId.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
-        emit TransactionRequest(txId, receiverId, txAmount);
         transactions[txId] = Transaction(txId, receiverId, txAmount, "http://mumboJumbo.jpg");
+        emit TransactionRequest(txId, receiverId, txAmount);
         return true;
     }
 

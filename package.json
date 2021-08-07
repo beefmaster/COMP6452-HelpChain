@@ -2,9 +2,11 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "fetch": "^1.1.0",
     "ganache-cli": "^6.12.2",
     "nodejs": "*",
     "solc": "^0.8.6",
+    "truffle-contract": "^4.0.31",
     "web3": "^1.4.0"
   }
 }

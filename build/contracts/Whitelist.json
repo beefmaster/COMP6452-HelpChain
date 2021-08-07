@@ -39,9 +39,9 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.6+commit.11564f7e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"whiteListHash_\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"whiteListHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Whitelist.sol\":\"Whitelist\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Whitelist.sol\":{\"keccak256\":\"0x96f573f44a072a1f9b8d6e05023a4fd51e1bd72332bcd4355f70e4aed70281bc\",\"urls\":[\"bzz-raw://70a0b0ac08af0027e51d11884742c73ba1d7f8337b283f0addbedcaf8c8c88d5\",\"dweb:/ipfs/QmSAHRNrGX82oyraUkedxEmncRHJLgGmY1HCPgGWbtTqar\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b5060405161025d38038061025d83398181016040528101906100329190610094565b336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600181905550506100e7565b60008151905061008e816100d0565b92915050565b6000602082840312156100aa576100a96100cb565b5b60006100b88482850161007f565b91505092915050565b6000819050919050565b600080fd5b6100d9816100c1565b81146100e457600080fd5b50565b610167806100f66000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c806314665f6e1461003b5780638da5cb5b14610059575b600080fd5b610043610077565b60405161005091906100da565b60405180910390f35b61006161007d565b60405161006e91906100bf565b60405180910390f35b60015481565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6100aa816100f5565b82525050565b6100b981610107565b82525050565b60006020820190506100d460008301846100a1565b92915050565b60006020820190506100ef60008301846100b0565b92915050565b600061010082610111565b9050919050565b6000819050919050565b600073ffffffffffffffffffffffffffffffffffffffff8216905091905056fea26469706673582212201ff4990405a78c13bf3ce4a075023230aabd3c221c73208fe3d51f2a70fc184c64736f6c63430008060033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c806314665f6e1461003b5780638da5cb5b14610059575b600080fd5b610043610077565b60405161005091906100da565b60405180910390f35b61006161007d565b60405161006e91906100bf565b60405180910390f35b60015481565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6100aa816100f5565b82525050565b6100b981610107565b82525050565b60006020820190506100d460008301846100a1565b92915050565b60006020820190506100ef60008301846100b0565b92915050565b600061010082610111565b9050919050565b6000819050919050565b600073ffffffffffffffffffffffffffffffffffffffff8216905091905056fea26469706673582212201ff4990405a78c13bf3ce4a075023230aabd3c221c73208fe3d51f2a70fc184c64736f6c63430008060033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.6+commit.11564f7e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"whiteListHash_\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"whiteListHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Whitelist.sol\":\"Whitelist\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Whitelist.sol\":{\"keccak256\":\"0xd363bce75b9f72168d1d4e73712162ef87e98ccb4d94d1d841250253c65e5497\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://f9cac362b21312faf5fa3422c5c5b932ee9e516dfd9835310d029cf6284d4397\",\"dweb:/ipfs/QmP1kZ9EHwrrLnnsuBLyxrtnXHkhUqmu5T8nXhSkQtbzY7\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060405161025d38038061025d83398181016040528101906100329190610094565b336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600181905550506100e7565b60008151905061008e816100d0565b92915050565b6000602082840312156100aa576100a96100cb565b5b60006100b88482850161007f565b91505092915050565b6000819050919050565b600080fd5b6100d9816100c1565b81146100e457600080fd5b50565b610167806100f66000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c806314665f6e1461003b5780638da5cb5b14610059575b600080fd5b610043610077565b60405161005091906100da565b60405180910390f35b61006161007d565b60405161006e91906100bf565b60405180910390f35b60015481565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6100aa816100f5565b82525050565b6100b981610107565b82525050565b60006020820190506100d460008301846100a1565b92915050565b60006020820190506100ef60008301846100b0565b92915050565b600061010082610111565b9050919050565b6000819050919050565b600073ffffffffffffffffffffffffffffffffffffffff8216905091905056fea26469706673582212203f239e17a30f3be7a616e8dc1466f54270699c75918b397cba5a9d8bb618e72c64736f6c63430008060033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c806314665f6e1461003b5780638da5cb5b14610059575b600080fd5b610043610077565b60405161005091906100da565b60405180910390f35b61006161007d565b60405161006e91906100bf565b60405180910390f35b60015481565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6100aa816100f5565b82525050565b6100b981610107565b82525050565b60006020820190506100d460008301846100a1565b92915050565b60006020820190506100ef60008301846100b0565b92915050565b600061010082610111565b9050919050565b6000819050919050565b600073ffffffffffffffffffffffffffffffffffffffff8216905091905056fea26469706673582212203f239e17a30f3be7a616e8dc1466f54270699c75918b397cba5a9d8bb618e72c64736f6c63430008060033",
   "immutableReferences": {},
   "generatedSources": [
     {
@@ -1092,22 +1092,23 @@
       "name": "#utility.yul"
     }
   ],
-  "sourceMap": "34:207:5:-:0;;;125:111;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;179:10;171:5;;:18;;;;;;;;;;;;;;;;;;215:14;199:13;:30;;;;125:111;34:207;;7:143:6;64:5;95:6;89:13;80:22;;111:33;138:5;111:33;:::i;:::-;70:80;;;;:::o;156:351::-;226:6;275:2;263:9;254:7;250:23;246:32;243:2;;;281:79;;:::i;:::-;243:2;401:1;426:64;482:7;473:6;462:9;458:22;426:64;:::i;:::-;416:74;;372:128;233:274;;;;:::o;594:77::-;631:7;660:5;649:16;;639:32;;;:::o;800:117::-;909:1;906;899:12;923:122;996:24;1014:5;996:24;:::i;:::-;989:5;986:35;976:2;;1035:1;1032;1025:12;976:2;966:79;:::o;34:207:5:-;;;;;;;",
-  "deployedSourceMap": "34:207:5:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;86:28;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;60:20;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;86:28;;;;:::o;60:20::-;;;;;;;;;;;;:::o;7:118:6:-;94:24;112:5;94:24;:::i;:::-;89:3;82:37;72:53;;:::o;131:118::-;218:24;236:5;218:24;:::i;:::-;213:3;206:37;196:53;;:::o;255:222::-;348:4;386:2;375:9;371:18;363:26;;399:71;467:1;456:9;452:17;443:6;399:71;:::i;:::-;353:124;;;;:::o;483:222::-;576:4;614:2;603:9;599:18;591:26;;627:71;695:1;684:9;680:17;671:6;627:71;:::i;:::-;581:124;;;;:::o;711:96::-;748:7;777:24;795:5;777:24;:::i;:::-;766:35;;756:51;;;:::o;813:77::-;850:7;879:5;868:16;;858:32;;;:::o;896:126::-;933:7;973:42;966:5;962:54;951:65;;941:81;;;:::o",
-  "source": "pragma solidity >=0.7.0 <0.9.0;\n\n\ncontract Whitelist {\n\n    address public owner;\n    bytes32 public whiteListHash;\n    \n    constructor(bytes32 whiteListHash_) {\n        owner = msg.sender;\n        whiteListHash = whiteListHash_;\n    }\n\n\n\n}",
-  "sourcePath": "/Users/dylan/Library/Mobile Documents/com~apple~CloudDocs/Developer/UNSW/COMP6452_Blockchain_Architecture/COMP6452-HelpChain/contracts/Whitelist.sol",
+  "sourceMap": "72:207:5:-:0;;;163:111;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;217:10;209:5;;:18;;;;;;;;;;;;;;;;;;253:14;237:13;:30;;;;163:111;72:207;;7:143:6;64:5;95:6;89:13;80:22;;111:33;138:5;111:33;:::i;:::-;70:80;;;;:::o;156:351::-;226:6;275:2;263:9;254:7;250:23;246:32;243:2;;;281:79;;:::i;:::-;243:2;401:1;426:64;482:7;473:6;462:9;458:22;426:64;:::i;:::-;416:74;;372:128;233:274;;;;:::o;594:77::-;631:7;660:5;649:16;;639:32;;;:::o;800:117::-;909:1;906;899:12;923:122;996:24;1014:5;996:24;:::i;:::-;989:5;986:35;976:2;;1035:1;1032;1025:12;976:2;966:79;:::o;72:207:5:-;;;;;;;",
+  "deployedSourceMap": "72:207:5:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;124:28;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;98:20;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;124:28;;;;:::o;98:20::-;;;;;;;;;;;;:::o;7:118:6:-;94:24;112:5;94:24;:::i;:::-;89:3;82:37;72:53;;:::o;131:118::-;218:24;236:5;218:24;:::i;:::-;213:3;206:37;196:53;;:::o;255:222::-;348:4;386:2;375:9;371:18;363:26;;399:71;467:1;456:9;452:17;443:6;399:71;:::i;:::-;353:124;;;;:::o;483:222::-;576:4;614:2;603:9;599:18;591:26;;627:71;695:1;684:9;680:17;671:6;627:71;:::i;:::-;581:124;;;;:::o;711:96::-;748:7;777:24;795:5;777:24;:::i;:::-;766:35;;756:51;;;:::o;813:77::-;850:7;879:5;868:16;;858:32;;;:::o;896:126::-;933:7;973:42;966:5;962:54;951:65;;941:81;;;:::o",
+  "source": "//SPDX-License-Identifier: UNLICENSED\npragma solidity >=0.7.0 <0.9.0;\n\n\ncontract Whitelist {\n\n    address public owner;\n    bytes32 public whiteListHash;\n    \n    constructor(bytes32 whiteListHash_) {\n        owner = msg.sender;\n        whiteListHash = whiteListHash_;\n    }\n\n\n\n}",
+  "sourcePath": "/Users/Will/Documents/University /Final Year/T2/P2/COMP6452-HelpChain/contracts/Whitelist.sol",
   "ast": {
     "absolutePath": "project:/contracts/Whitelist.sol",
     "exportedSymbols": {
       "Whitelist": [
-        1557
+        1569
       ]
     },
-    "id": 1558,
+    "id": 1570,
+    "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1537,
+        "id": 1549,
         "literals": [
           "solidity",
           ">=",
@@ -1118,7 +1119,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:31:5"
+        "src": "38:31:5"
       },
       {
         "abstract": false,
@@ -1126,24 +1127,24 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 1557,
+        "id": 1569,
         "linearizedBaseContracts": [
-          1557
+          1569
         ],
         "name": "Whitelist",
-        "nameLocation": "43:9:5",
+        "nameLocation": "81:9:5",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
             "functionSelector": "8da5cb5b",
-            "id": 1539,
+            "id": 1551,
             "mutability": "mutable",
             "name": "owner",
-            "nameLocation": "75:5:5",
+            "nameLocation": "113:5:5",
             "nodeType": "VariableDeclaration",
-            "scope": 1557,
-            "src": "60:20:5",
+            "scope": 1569,
+            "src": "98:20:5",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1151,10 +1152,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1538,
+              "id": 1550,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "60:7:5",
+              "src": "98:7:5",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -1166,13 +1167,13 @@
           {
             "constant": false,
             "functionSelector": "14665f6e",
-            "id": 1541,
+            "id": 1553,
             "mutability": "mutable",
             "name": "whiteListHash",
-            "nameLocation": "101:13:5",
+            "nameLocation": "139:13:5",
             "nodeType": "VariableDeclaration",
-            "scope": 1557,
-            "src": "86:28:5",
+            "scope": 1569,
+            "src": "124:28:5",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1180,10 +1181,10 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 1540,
+              "id": 1552,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
-              "src": "86:7:5",
+              "src": "124:7:5",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes32",
                 "typeString": "bytes32"
@@ -1193,24 +1194,24 @@
           },
           {
             "body": {
-              "id": 1555,
+              "id": 1567,
               "nodeType": "Block",
-              "src": "161:75:5",
+              "src": "199:75:5",
               "statements": [
                 {
                   "expression": {
-                    "id": 1549,
+                    "id": 1561,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 1546,
+                      "id": 1558,
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1539,
-                      "src": "171:5:5",
+                      "referencedDeclaration": 1551,
+                      "src": "209:5:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1220,54 +1221,54 @@
                     "operator": "=",
                     "rightHandSide": {
                       "expression": {
-                        "id": 1547,
+                        "id": 1559,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 4294967281,
-                        "src": "179:3:5",
+                        "src": "217:3:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
                           "typeString": "msg"
                         }
                       },
-                      "id": 1548,
+                      "id": 1560,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "sender",
                       "nodeType": "MemberAccess",
-                      "src": "179:10:5",
+                      "src": "217:10:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "171:18:5",
+                    "src": "209:18:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 1550,
+                  "id": 1562,
                   "nodeType": "ExpressionStatement",
-                  "src": "171:18:5"
+                  "src": "209:18:5"
                 },
                 {
                   "expression": {
-                    "id": 1553,
+                    "id": 1565,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 1551,
+                      "id": 1563,
                       "name": "whiteListHash",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1541,
-                      "src": "199:13:5",
+                      "referencedDeclaration": 1553,
+                      "src": "237:13:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
@@ -1276,30 +1277,30 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 1552,
+                      "id": 1564,
                       "name": "whiteListHash_",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1543,
-                      "src": "215:14:5",
+                      "referencedDeclaration": 1555,
+                      "src": "253:14:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "src": "199:30:5",
+                    "src": "237:30:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 1554,
+                  "id": 1566,
                   "nodeType": "ExpressionStatement",
-                  "src": "199:30:5"
+                  "src": "237:30:5"
                 }
               ]
             },
-            "id": 1556,
+            "id": 1568,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -1307,18 +1308,18 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1544,
+              "id": 1556,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1543,
+                  "id": 1555,
                   "mutability": "mutable",
                   "name": "whiteListHash_",
-                  "nameLocation": "145:14:5",
+                  "nameLocation": "183:14:5",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1556,
-                  "src": "137:22:5",
+                  "scope": 1568,
+                  "src": "175:22:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1326,10 +1327,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 1542,
+                    "id": 1554,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "137:7:5",
+                    "src": "175:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1338,40 +1339,41 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "136:24:5"
+              "src": "174:24:5"
             },
             "returnParameters": {
-              "id": 1545,
+              "id": 1557,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "161:0:5"
+              "src": "199:0:5"
             },
-            "scope": 1557,
-            "src": "125:111:5",
+            "scope": 1569,
+            "src": "163:111:5",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 1558,
-        "src": "34:207:5",
+        "scope": 1570,
+        "src": "72:207:5",
         "usedErrors": []
       }
     ],
-    "src": "0:241:5"
+    "src": "38:241:5"
   },
   "legacyAST": {
     "absolutePath": "project:/contracts/Whitelist.sol",
     "exportedSymbols": {
       "Whitelist": [
-        1557
+        1569
       ]
     },
-    "id": 1558,
+    "id": 1570,
+    "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1537,
+        "id": 1549,
         "literals": [
           "solidity",
           ">=",
@@ -1382,7 +1384,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:31:5"
+        "src": "38:31:5"
       },
       {
         "abstract": false,
@@ -1390,24 +1392,24 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 1557,
+        "id": 1569,
         "linearizedBaseContracts": [
-          1557
+          1569
         ],
         "name": "Whitelist",
-        "nameLocation": "43:9:5",
+        "nameLocation": "81:9:5",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
             "functionSelector": "8da5cb5b",
-            "id": 1539,
+            "id": 1551,
             "mutability": "mutable",
             "name": "owner",
-            "nameLocation": "75:5:5",
+            "nameLocation": "113:5:5",
             "nodeType": "VariableDeclaration",
-            "scope": 1557,
-            "src": "60:20:5",
+            "scope": 1569,
+            "src": "98:20:5",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1415,10 +1417,10 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1538,
+              "id": 1550,
               "name": "address",
               "nodeType": "ElementaryTypeName",
-              "src": "60:7:5",
+              "src": "98:7:5",
               "stateMutability": "nonpayable",
               "typeDescriptions": {
                 "typeIdentifier": "t_address",
@@ -1430,13 +1432,13 @@
           {
             "constant": false,
             "functionSelector": "14665f6e",
-            "id": 1541,
+            "id": 1553,
             "mutability": "mutable",
             "name": "whiteListHash",
-            "nameLocation": "101:13:5",
+            "nameLocation": "139:13:5",
             "nodeType": "VariableDeclaration",
-            "scope": 1557,
-            "src": "86:28:5",
+            "scope": 1569,
+            "src": "124:28:5",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -1444,10 +1446,10 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 1540,
+              "id": 1552,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
-              "src": "86:7:5",
+              "src": "124:7:5",
               "typeDescriptions": {
                 "typeIdentifier": "t_bytes32",
                 "typeString": "bytes32"
@@ -1457,24 +1459,24 @@
           },
           {
             "body": {
-              "id": 1555,
+              "id": 1567,
               "nodeType": "Block",
-              "src": "161:75:5",
+              "src": "199:75:5",
               "statements": [
                 {
                   "expression": {
-                    "id": 1549,
+                    "id": 1561,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 1546,
+                      "id": 1558,
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1539,
-                      "src": "171:5:5",
+                      "referencedDeclaration": 1551,
+                      "src": "209:5:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1484,54 +1486,54 @@
                     "operator": "=",
                     "rightHandSide": {
                       "expression": {
-                        "id": 1547,
+                        "id": 1559,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 4294967281,
-                        "src": "179:3:5",
+                        "src": "217:3:5",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
                           "typeString": "msg"
                         }
                       },
-                      "id": 1548,
+                      "id": 1560,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "sender",
                       "nodeType": "MemberAccess",
-                      "src": "179:10:5",
+                      "src": "217:10:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "src": "171:18:5",
+                    "src": "209:18:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
-                  "id": 1550,
+                  "id": 1562,
                   "nodeType": "ExpressionStatement",
-                  "src": "171:18:5"
+                  "src": "209:18:5"
                 },
                 {
                   "expression": {
-                    "id": 1553,
+                    "id": 1565,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 1551,
+                      "id": 1563,
                       "name": "whiteListHash",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1541,
-                      "src": "199:13:5",
+                      "referencedDeclaration": 1553,
+                      "src": "237:13:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
@@ -1540,30 +1542,30 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 1552,
+                      "id": 1564,
                       "name": "whiteListHash_",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1543,
-                      "src": "215:14:5",
+                      "referencedDeclaration": 1555,
+                      "src": "253:14:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
                         "typeString": "bytes32"
                       }
                     },
-                    "src": "199:30:5",
+                    "src": "237:30:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 1554,
+                  "id": 1566,
                   "nodeType": "ExpressionStatement",
-                  "src": "199:30:5"
+                  "src": "237:30:5"
                 }
               ]
             },
-            "id": 1556,
+            "id": 1568,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -1571,18 +1573,18 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1544,
+              "id": 1556,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1543,
+                  "id": 1555,
                   "mutability": "mutable",
                   "name": "whiteListHash_",
-                  "nameLocation": "145:14:5",
+                  "nameLocation": "183:14:5",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1556,
-                  "src": "137:22:5",
+                  "scope": 1568,
+                  "src": "175:22:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1590,10 +1592,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 1542,
+                    "id": 1554,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "137:7:5",
+                    "src": "175:7:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -1602,27 +1604,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "136:24:5"
+              "src": "174:24:5"
             },
             "returnParameters": {
-              "id": 1545,
+              "id": 1557,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "161:0:5"
+              "src": "199:0:5"
             },
-            "scope": 1557,
-            "src": "125:111:5",
+            "scope": 1569,
+            "src": "163:111:5",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 1558,
-        "src": "34:207:5",
+        "scope": 1570,
+        "src": "72:207:5",
         "usedErrors": []
       }
     ],
-    "src": "0:241:5"
+    "src": "38:241:5"
   },
   "compiler": {
     "name": "solc",
@@ -1630,7 +1632,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.2",
-  "updatedAt": "2021-08-07T07:47:45.283Z",
+  "updatedAt": "2021-08-07T15:35:48.952Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
