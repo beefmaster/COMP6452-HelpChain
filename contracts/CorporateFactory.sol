@@ -76,6 +76,7 @@ contract Corporate {
     address public owner; // owner of the contract e.g. a Corporates own address
     Admin public admin; // admin of the system
     CorporateFactory parent; // Corporate Factory this was created from 
+    
     uint public corporate_id; // Corporate ID assigned to 
     string public corporate_name_; // name of the Corporate
     mapping(address => sub) public subsidiaries; // a mapping of addresses to the sub struct.
@@ -102,7 +103,7 @@ contract Corporate {
 
     // This function is used to create a Subsidiary branch of the Corporate representing a store
     function createSub(uint id) public  permissioned validContract returns(address){
-        Subsidiary newSub = new Subsidiary(this);
+        Subsidiary newSub = new Subsidiary(admin, owner);
         subs.push(address(newSub)); // add new sub to subsidiary array 
         subsidiaries[address(newSub)] = sub(address(newSub), id, true); // add new sub to mapping
         return address(newSub);
@@ -155,6 +156,9 @@ contract Corporate {
 // This contract represent a Subsidiary branch of a corporate 
 contract Subsidiary {
     Corporate public parent_; // Corporate Contract
+    Admin public admin; //Admin
+    address public owner; //Corporate owner address
+    
     uint amount; //Balanace
     mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
@@ -178,9 +182,11 @@ contract Subsidiary {
     mapping(uint => Transaction) transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
     uint numOfTransactions;
 
-    constructor(Corporate corp) {
-        parent_ = corp;
-        amount = 0;
+    constructor(Admin admin_, address owner_) {
+        parent_ = Corporate(msg.sender);
+        admin = admin_;
+        owner = owner_;
+        amount = this.balance;
     }
 
     // need to make sure no possibility for double spend
