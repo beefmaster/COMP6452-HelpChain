@@ -27,7 +27,7 @@ contract CorporateFactory {
     }
 
     //function to create a new Corporate with name <corpName> 
-    function createCorp(string memory corpName, address owner_) public  permissioned activeContract returns(address){
+    function createCorp(string memory corpName, address owner_) public  permissioned activeContract returns(address corpAddr){
         Corporate newCorp = new Corporate(admin,corpName, owner_, numCorps); // passes parent's admin, address of owner and corp name
         corporates[numCorps] = corporate(address(newCorp), numCorps, true); // add the corporate to the last spot in the list 
         numCorps += 1;
