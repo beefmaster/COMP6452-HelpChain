@@ -162,6 +162,7 @@ contract Subsidiary {
     uint amount; //Balanace
     mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
+    bool valid;
 
     // Transaction struct to be sent to the off-chain oracle 
     struct Transaction {
@@ -186,12 +187,14 @@ contract Subsidiary {
         parent_ = Corporate(msg.sender);
         admin = admin_;
         owner = owner_;
-        amount = this.balance;
+        permissionedAddress[owner_] = true;
+        amount = address(this).balance;
+        valid = true;
     }
 
     // need to make sure no possibility for double spend
     // Will reset to zero and prevent withdrawl whilst the send transaction is processed.
-    function getTake() public payable accountsAccess returns(bool)  {
+    function getTake() public payable accountsAccess accountValid returns(bool)  {
         uint prevAmount = amount;
         amount = 0;
         return payable(address(parent_)).send(prevAmount); // need to write a fallback function if this fails.
@@ -199,7 +202,7 @@ contract Subsidiary {
 
     // Oracle end point.
     // reassess this function as it always returns true.
-    function insertTransaction(uint txId, address receiverId, uint txAmount) restricted public returns(bool) {
+    function insertTransaction(uint txId, address receiverId, uint txAmount) restricted accountValid public returns(bool) {
         require(receiverId.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
         emit TransactionRequest(txId, receiverId, txAmount);
         transactions[txId] = Transaction(txId, receiverId, txAmount, "http://mumboJumbo.jpg");
@@ -207,7 +210,7 @@ contract Subsidiary {
     }
 
     // provides functionality to receive funds
-    receive() external payable{
+    receive() external accountValid payable{
         emit ValueReceived(msg.sender, msg.value);
     }
     
@@ -218,6 +221,12 @@ contract Subsidiary {
 
     modifier accountsAccess {
         require(msg.sender == address(parent_));
+        _;
+    }
+    
+    
+    modifier accountValid {
+        require(valid == true, "This Subsidiary is no longer valid");
         _;
     }
 }

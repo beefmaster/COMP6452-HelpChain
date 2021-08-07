@@ -57,14 +57,7 @@ module.exports = async function(deployer, accounts) {
       console.log(AdminD.corporateFactory());
 
 
-  }).then(async()=>{
-      console.log(accounts[1])
-      CorporateDeployer = await deployer.deploy(Corporate, "0xe7E89a3c7f931933bca106e308f29350c0daEB16", AdminD.address, "Woolies");
-      console.log("Corporate Instance:");
-      console.log(CorporateDeployer.address);
-      Sub = await CorporateDeployer.createSub(1); 
   })
-
 
   
 };
