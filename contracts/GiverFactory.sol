@@ -55,7 +55,7 @@ contract GiverFactory {
         return address(giver_array[index]);
     }
     
-    // Returns total number of receivers
+    // Returns total number of givers
     function getNumOfGivers() public view returns(uint){
         return giver_array.length;
     }
