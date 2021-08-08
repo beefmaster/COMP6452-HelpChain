@@ -11,13 +11,13 @@ contract Giver {
     address public fundsPoolAddress;
     event ValueGiven(address user, uint amount);
 
-    constructor(GiverFactory ownerGiver_, address fundsPoolAddress_, Admin admin_) {
+    constructor(GiverFactory ownerGiver_, address fundsPoolAddress_, Admin admin_) payable {
         ownerGiver = ownerGiver_;
         fundsPoolAddress = fundsPoolAddress_;
         admin = admin_;
     }
 
-    function addFunds(address ownerGiver_, uint amount) public {
+    function addFunds(address ownerGiver_, uint amount) public payable {
         payable(ownerGiver_).transfer(amount);
     }
 
