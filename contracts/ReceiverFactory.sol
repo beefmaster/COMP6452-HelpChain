@@ -27,7 +27,7 @@ contract Receiver {
         emit ValueReceived(msg.sender, msg.value);
     }
 
-    function tFunds(address toSend, uint amount) public payable{
+    function tFunds(address toSend, uint amount) external payable{
         payable(toSend).transfer(amount);
     }
     
@@ -35,17 +35,17 @@ contract Receiver {
         valid = false;
     }
 
-    function spendFunds(uint cost, address to_) public payable isValid onlyOwner {
+    function spendFunds(uint cost, address to_) external payable isValid onlyOwner {
         funds -= cost;
-        payable(to_).transfer(cost);
+        (bool success,) = payable(to_).call{value:cost}("");
     }
     // this function is used to send Subsidiaries funds when a transaction is made
-    function sendSubFunds(Subsidiary toSend, uint tx_amount) public payable isValid returns(bool){
+    function sendSubFunds(Subsidiary toSend, uint tx_amount) payable external isValid returns(bool){
         require(address(this).balance >= tx_amount, "Receiver contract does not have enough funds"); // check enough funds
-        require(admin == toSend.admin() || ownerReceiver == toSend.owner(), "Owners/Admin do not match"); // check not hostile subsidiary
+        require(address(admin) == address(toSend.admin()) || ownerReceiver == toSend.owner(), "Owners/Admin do not match"); // check not hostile subsidiary
         require(toSend.valid() == true, "This subsidiary is no longer valid"); // check sub is valid
         // send the requested funds 
-        payable(toSend).transfer(tx_amount);
+        (bool success,) = payable(toSend).call{value:tx_amount}("");
         return true;
     }
 

@@ -23,7 +23,7 @@ contract Giver {
     }
 
     function giveFunds(uint amount) public payable {
-        payable(fundsPoolAddress).transfer(amount);
+        payable(fundsPoolAddress).call{value:amount}("");
     }
 
 }
