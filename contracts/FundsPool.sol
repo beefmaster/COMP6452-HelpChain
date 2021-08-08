@@ -37,6 +37,10 @@ contract FundsPool{
         receiverFactory = rec;  
     }
 
+    function getFundsBalance() public view returns(uint256){
+        return address(this).balance;
+    }
+
     receive() external payable{
         emit ValueReceived(msg.sender, msg.value);
         funds = address(this).balance;
