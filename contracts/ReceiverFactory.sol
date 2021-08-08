@@ -33,21 +33,12 @@ contract Receiver {
 
     // this function is used to send Subsidiaries funds when a transaction is made
     function sendSubFunds(Subsidiary toSend, uint tx_amount) public payable returns(bool){
-        require(address(this).balance >= tx_amount, "Receiver contract does not have enough funds");
-
-        //get the Corporate parent of the subsidiary 
-        Corporate corp = toSend.parent_();
-        //get the address of the corporate Factory 
-        CorporateFactory corp_fac = admin.corporateFactory();
-        //check if the corporate is valid through the corporate factory
-        require(corp_fac.checkIfCorporateValid(corp.corporate_id()) == true, "Not valid corporate ID");
-        //check if the subsidiary is valid for the corporate 
-        require(Corporate(corp_fac.getCorporate(corp.corporate_id())).checkIfSubsidiaryValid(address(toSend)) == true, "Not a valid subsidiary");
-
+        require(address(this).balance >= tx_amount, "Receiver contract does not have enough funds"); // check enough funds
+        require(admin == toSend.admin() || ownerReceiver == toSend.owner(), "Owners/Admin do not match"); // check not hostile subsidiary
+        require(toSend.valid() == true, "This subsidiary is no longer valid"); // check sub is valid
         // send the requested funds 
         payable(toSend).transfer(tx_amount);
         return true;
-    
     }
 
     modifier onlyOwner() {

@@ -84,6 +84,7 @@ contract Corporate {
     address[] public subs; // could make this into a struct so the id can be found easily.
     Whitelist public whitelist; //whitelist associated with the corporate
     bool public valid; //checks if the contract is valid 
+    uint public numOfSubs; 
     
     struct sub {
         address subAddress;
@@ -102,10 +103,11 @@ contract Corporate {
     }
 
     // This function is used to create a Subsidiary branch of the Corporate representing a store
-    function createSub(uint id) public  permissioned validContract returns(address){
+    function createSub() public  permissioned validContract returns(address){
         Subsidiary newSub = new Subsidiary(admin, owner);
         subs.push(address(newSub)); // add new sub to subsidiary array 
-        subsidiaries[address(newSub)] = sub(address(newSub), id, true); // add new sub to mapping
+        subsidiaries[address(newSub)] = sub(address(newSub), numOfSubs, true); // add new sub to mapping
+        numOfSubs++;
         return address(newSub);
     }
 
@@ -151,8 +153,6 @@ contract Corporate {
     }
 }
 
-
-
 // This contract represents a Subsidiary branch of a Corporate partner
 contract Subsidiary {
     Corporate public parent_; // Corporate Contract
@@ -162,7 +162,7 @@ contract Subsidiary {
     uint amount; //Balanace
     mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
-    bool valid;
+    bool public valid;
 
     // Transaction struct to be sent to the off-chain oracle 
     struct Transaction {
