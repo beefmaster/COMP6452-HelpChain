@@ -1095,20 +1095,20 @@
   "sourceMap": "72:207:5:-:0;;;163:111;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;217:10;209:5;;:18;;;;;;;;;;;;;;;;;;253:14;237:13;:30;;;;163:111;72:207;;7:143:6;64:5;95:6;89:13;80:22;;111:33;138:5;111:33;:::i;:::-;70:80;;;;:::o;156:351::-;226:6;275:2;263:9;254:7;250:23;246:32;243:2;;;281:79;;:::i;:::-;243:2;401:1;426:64;482:7;473:6;462:9;458:22;426:64;:::i;:::-;416:74;;372:128;233:274;;;;:::o;594:77::-;631:7;660:5;649:16;;639:32;;;:::o;800:117::-;909:1;906;899:12;923:122;996:24;1014:5;996:24;:::i;:::-;989:5;986:35;976:2;;1035:1;1032;1025:12;976:2;966:79;:::o;72:207:5:-;;;;;;;",
   "deployedSourceMap": "72:207:5:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;124:28;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;98:20;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;124:28;;;;:::o;98:20::-;;;;;;;;;;;;:::o;7:118:6:-;94:24;112:5;94:24;:::i;:::-;89:3;82:37;72:53;;:::o;131:118::-;218:24;236:5;218:24;:::i;:::-;213:3;206:37;196:53;;:::o;255:222::-;348:4;386:2;375:9;371:18;363:26;;399:71;467:1;456:9;452:17;443:6;399:71;:::i;:::-;353:124;;;;:::o;483:222::-;576:4;614:2;603:9;599:18;591:26;;627:71;695:1;684:9;680:17;671:6;627:71;:::i;:::-;581:124;;;;:::o;711:96::-;748:7;777:24;795:5;777:24;:::i;:::-;766:35;;756:51;;;:::o;813:77::-;850:7;879:5;868:16;;858:32;;;:::o;896:126::-;933:7;973:42;966:5;962:54;951:65;;941:81;;;:::o",
   "source": "//SPDX-License-Identifier: UNLICENSED\npragma solidity >=0.7.0 <0.9.0;\n\n\ncontract Whitelist {\n\n    address public owner;\n    bytes32 public whiteListHash;\n    \n    constructor(bytes32 whiteListHash_) {\n        owner = msg.sender;\n        whiteListHash = whiteListHash_;\n    }\n\n\n\n}",
-  "sourcePath": "/Users/Will/Documents/University /Final Year/T2/P2/COMP6452-HelpChain/contracts/Whitelist.sol",
+  "sourcePath": "/Users/dylan/Library/Mobile Documents/com~apple~CloudDocs/Developer/UNSW/COMP6452_Blockchain_Architecture/COMP6452-HelpChain/contracts/Whitelist.sol",
   "ast": {
     "absolutePath": "project:/contracts/Whitelist.sol",
     "exportedSymbols": {
       "Whitelist": [
-        1552
+        1550
       ]
     },
-    "id": 1553,
+    "id": 1551,
     "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1532,
+        "id": 1530,
         "literals": [
           "solidity",
           ">=",
@@ -1127,9 +1127,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 1552,
+        "id": 1550,
         "linearizedBaseContracts": [
-          1552
+          1550
         ],
         "name": "Whitelist",
         "nameLocation": "81:9:5",
@@ -1138,12 +1138,12 @@
           {
             "constant": false,
             "functionSelector": "8da5cb5b",
-            "id": 1534,
+            "id": 1532,
             "mutability": "mutable",
             "name": "owner",
             "nameLocation": "113:5:5",
             "nodeType": "VariableDeclaration",
-            "scope": 1552,
+            "scope": 1550,
             "src": "98:20:5",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1152,7 +1152,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1533,
+              "id": 1531,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "98:7:5",
@@ -1167,12 +1167,12 @@
           {
             "constant": false,
             "functionSelector": "14665f6e",
-            "id": 1536,
+            "id": 1534,
             "mutability": "mutable",
             "name": "whiteListHash",
             "nameLocation": "139:13:5",
             "nodeType": "VariableDeclaration",
-            "scope": 1552,
+            "scope": 1550,
             "src": "124:28:5",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1181,7 +1181,7 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 1535,
+              "id": 1533,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
               "src": "124:7:5",
@@ -1194,23 +1194,23 @@
           },
           {
             "body": {
-              "id": 1550,
+              "id": 1548,
               "nodeType": "Block",
               "src": "199:75:5",
               "statements": [
                 {
                   "expression": {
-                    "id": 1544,
+                    "id": 1542,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 1541,
+                      "id": 1539,
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1534,
+                      "referencedDeclaration": 1532,
                       "src": "209:5:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1221,7 +1221,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "expression": {
-                        "id": 1542,
+                        "id": 1540,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
@@ -1232,7 +1232,7 @@
                           "typeString": "msg"
                         }
                       },
-                      "id": 1543,
+                      "id": 1541,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1251,23 +1251,23 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 1545,
+                  "id": 1543,
                   "nodeType": "ExpressionStatement",
                   "src": "209:18:5"
                 },
                 {
                   "expression": {
-                    "id": 1548,
+                    "id": 1546,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 1546,
+                      "id": 1544,
                       "name": "whiteListHash",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1536,
+                      "referencedDeclaration": 1534,
                       "src": "237:13:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -1277,11 +1277,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 1547,
+                      "id": 1545,
                       "name": "whiteListHash_",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1538,
+                      "referencedDeclaration": 1536,
                       "src": "253:14:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -1294,13 +1294,13 @@
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 1549,
+                  "id": 1547,
                   "nodeType": "ExpressionStatement",
                   "src": "237:30:5"
                 }
               ]
             },
-            "id": 1551,
+            "id": 1549,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -1308,17 +1308,17 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1539,
+              "id": 1537,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1538,
+                  "id": 1536,
                   "mutability": "mutable",
                   "name": "whiteListHash_",
                   "nameLocation": "183:14:5",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1551,
+                  "scope": 1549,
                   "src": "175:22:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1327,7 +1327,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 1537,
+                    "id": 1535,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "175:7:5",
@@ -1342,19 +1342,19 @@
               "src": "174:24:5"
             },
             "returnParameters": {
-              "id": 1540,
+              "id": 1538,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "199:0:5"
             },
-            "scope": 1552,
+            "scope": 1550,
             "src": "163:111:5",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 1553,
+        "scope": 1551,
         "src": "72:207:5",
         "usedErrors": []
       }
@@ -1365,15 +1365,15 @@
     "absolutePath": "project:/contracts/Whitelist.sol",
     "exportedSymbols": {
       "Whitelist": [
-        1552
+        1550
       ]
     },
-    "id": 1553,
+    "id": 1551,
     "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1532,
+        "id": 1530,
         "literals": [
           "solidity",
           ">=",
@@ -1392,9 +1392,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 1552,
+        "id": 1550,
         "linearizedBaseContracts": [
-          1552
+          1550
         ],
         "name": "Whitelist",
         "nameLocation": "81:9:5",
@@ -1403,12 +1403,12 @@
           {
             "constant": false,
             "functionSelector": "8da5cb5b",
-            "id": 1534,
+            "id": 1532,
             "mutability": "mutable",
             "name": "owner",
             "nameLocation": "113:5:5",
             "nodeType": "VariableDeclaration",
-            "scope": 1552,
+            "scope": 1550,
             "src": "98:20:5",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1417,7 +1417,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 1533,
+              "id": 1531,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "98:7:5",
@@ -1432,12 +1432,12 @@
           {
             "constant": false,
             "functionSelector": "14665f6e",
-            "id": 1536,
+            "id": 1534,
             "mutability": "mutable",
             "name": "whiteListHash",
             "nameLocation": "139:13:5",
             "nodeType": "VariableDeclaration",
-            "scope": 1552,
+            "scope": 1550,
             "src": "124:28:5",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1446,7 +1446,7 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 1535,
+              "id": 1533,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
               "src": "124:7:5",
@@ -1459,23 +1459,23 @@
           },
           {
             "body": {
-              "id": 1550,
+              "id": 1548,
               "nodeType": "Block",
               "src": "199:75:5",
               "statements": [
                 {
                   "expression": {
-                    "id": 1544,
+                    "id": 1542,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 1541,
+                      "id": 1539,
                       "name": "owner",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1534,
+                      "referencedDeclaration": 1532,
                       "src": "209:5:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -1486,7 +1486,7 @@
                     "operator": "=",
                     "rightHandSide": {
                       "expression": {
-                        "id": 1542,
+                        "id": 1540,
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
@@ -1497,7 +1497,7 @@
                           "typeString": "msg"
                         }
                       },
-                      "id": 1543,
+                      "id": 1541,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1516,23 +1516,23 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 1545,
+                  "id": 1543,
                   "nodeType": "ExpressionStatement",
                   "src": "209:18:5"
                 },
                 {
                   "expression": {
-                    "id": 1548,
+                    "id": 1546,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
-                      "id": 1546,
+                      "id": 1544,
                       "name": "whiteListHash",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1536,
+                      "referencedDeclaration": 1534,
                       "src": "237:13:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -1542,11 +1542,11 @@
                     "nodeType": "Assignment",
                     "operator": "=",
                     "rightHandSide": {
-                      "id": 1547,
+                      "id": 1545,
                       "name": "whiteListHash_",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1538,
+                      "referencedDeclaration": 1536,
                       "src": "253:14:5",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes32",
@@ -1559,13 +1559,13 @@
                       "typeString": "bytes32"
                     }
                   },
-                  "id": 1549,
+                  "id": 1547,
                   "nodeType": "ExpressionStatement",
                   "src": "237:30:5"
                 }
               ]
             },
-            "id": 1551,
+            "id": 1549,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -1573,17 +1573,17 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1539,
+              "id": 1537,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1538,
+                  "id": 1536,
                   "mutability": "mutable",
                   "name": "whiteListHash_",
                   "nameLocation": "183:14:5",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1551,
+                  "scope": 1549,
                   "src": "175:22:5",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1592,7 +1592,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 1537,
+                    "id": 1535,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "175:7:5",
@@ -1607,19 +1607,19 @@
               "src": "174:24:5"
             },
             "returnParameters": {
-              "id": 1540,
+              "id": 1538,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "199:0:5"
             },
-            "scope": 1552,
+            "scope": 1550,
             "src": "163:111:5",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 1553,
+        "scope": 1551,
         "src": "72:207:5",
         "usedErrors": []
       }
@@ -1632,7 +1632,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.2",
-  "updatedAt": "2021-08-08T10:30:46.807Z",
+  "updatedAt": "2021-08-08T11:04:30.592Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
