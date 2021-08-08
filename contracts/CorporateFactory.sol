@@ -159,7 +159,7 @@ contract Subsidiary {
     Admin public admin; //Admin
     address public owner; //Corporate owner address
     
-    uint amount; //Balanace
+    uint public amount; //Balanace
     mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
     bool valid;
@@ -180,7 +180,7 @@ contract Subsidiary {
     );
 
     // transaction id to person id
-    mapping(uint => Transaction) transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
+    mapping(uint => Transaction) public transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
     uint numOfTransactions;
 
     constructor(Admin admin_, address owner_) {
@@ -210,10 +210,13 @@ contract Subsidiary {
     }
 
     // Oracle end point for inserting transaction details into blockchain and recording the mapping
-    function insertTransaction(uint txId, address receiverId, uint txAmount) restricted accountValid public returns(bool) {
-        require(receiverId.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
+    // function insertTransaction(uint txId, address receiverId, uint txAmount) restricted accountValid public returns(bool) {
+
+    function insertTransaction(uint txId, address receiverId, uint txAmount) public returns(bool) {
+        // require(receiverId.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
+        amount = txAmount;
         transactions[txId] = Transaction(txId, receiverId, txAmount, "http://mumboJumbo.jpg");
-        emit TransactionRequest(txId, receiverId, txAmount);
+        // emit TransactionRequest(txId, receiverId, txAmount);
         return true;
     }
 

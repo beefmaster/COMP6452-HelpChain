@@ -29,17 +29,62 @@ let address = ""
 // var dummy =  contract.methods.setInsertTX(69);
 // console.log(dummy);
 
-const abi = require('./build/contracts/CorporateFactory.json');
-const contract = new web3.eth.Contract(abi.abi, "0xf85FA8f98b38110b48816F698D2D7532A77334c2");
-// console.log(contract.methods);
-console.log(contract.methods.getCorporate(0));
+// const abi = require('./build/contracts/CorporateFactory.json');
+// const contract = new web3.eth.Contract(abi.abi, "0xf85FA8f98b38110b48816F698D2D7532A77334c2");
+// // console.log(contract.methods);
+// console.log(contract.methods.getCorporate(0));
 
-contract.methods.getCorporate(0).call({from: account})
-    .then ((result) => {
-        console.log(result);
+// contract.methods.getCorporate(0).call({from: account})
+//     .then ((result) => {
+//         console.log(result);
+//     });
+// Load in the Subsidiary contract ABI 
+const abi = require('./build/contracts/Subsidiary.json');
+const contract = new web3.eth.Contract(abi.abi, "0x68a808ABa2E82B4E65DAC5986A82156065616523", {gas: '3000000'});
+var dummy =  contract.methods.setInsertTX(69);
+console.log(dummy);
+
+// contract.methods.getCorporate(0).call({from: account})
+//     .then ((result) => {
+//         console.log(result);
+// });
+
+
+app.post('/write',  async (req, res) => {
+    console.log(req);
+    console.log("hit write url")
+
+    // Receive query parameters
+    var txId = req.query.txId;
+    var recAddr = req.query.recAddr;
+    var txAmount = req.query.txAmount;
+    // var link = require('sample_reciept.png');
+    
+    // Open JSON Database store
+    let cur = fs.readFileSync('db_json.json');
+    let curObj = JSON.parse(cur);
+    console.log("DB is: " + curObj);
+
+    curObj.push({"id" : txId, "receiverAddress" : recAddr, "txAmount" : txAmount});
+    let txData = JSON.stringify(curObj);
+    fs.writeFileSync('./db_json.json', txData, (err) => {
+        if (err){
+            console.error(err);
+        }
     });
+  
+    // contract.methods.setInsertTX(50).call({from: account})
+    // .then ((result) => {
+    //     console.log(result);
+    // });
+    contract.methods.insertTransaction(txId, recAddr, txAmount).send({from: account});
 
-// console.log(contract.methods);
+    console.log("DB is: " + curObj);
+    console.log("Information: " + txId + " " + recAddr + " " + txAmount);
+
+    res.sendStatus(200);
+})
+
 
 // web3.eth.getAccounts((err, accounts) => {
 //     subsidiaryContract.deployed()
