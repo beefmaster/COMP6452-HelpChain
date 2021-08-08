@@ -1,3 +1,7 @@
+let Web3 = require('web3');
+const testNetWS = "ws://127.0.0.1:7545"
+const web3 = new Web3(new Web3.providers.WebsocketProvider(testNetWS))
+
 // const ConvertLib = artifacts.require("ConvertLib");
 // const MetaCoin = artifacts.require("MetaCoin");
 const CorporateFactory = artifacts.require("CorporateFactory");
@@ -48,13 +52,15 @@ module.exports = async function(deployer, accounts) {
     await AdminD.updateReceiverFactory(ReceiverFactoryDeployer.address);
     await AdminD.updateGiverFactory(GiverFactoryDeployer.address);
 
-
       console.log("funds deployer: ");
-      console.log(AdminD.fundsPool());
+      console.log(await AdminD.fundsPool());
       console.log("Reciever Factory:");
-      console.log(AdminD.receiverFactory());
+      console.log(await AdminD.receiverFactory());
       console.log("corporate Factory:");
-      console.log(AdminD.corporateFactory());
+      console.log( await AdminD.corporateFactory());
+  }).then(async()=>{
+
+    
 
 
   })
