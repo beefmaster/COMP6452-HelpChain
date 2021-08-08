@@ -204,14 +204,11 @@ contract Subsidiary {
 
     // Oracle end point for inserting transaction details into blockchain and recording the mapping
     // function insertTransaction(uint txId, address receiverId, uint txAmount) restricted accountValid public returns(bool) {
-
     function insertTransaction(Receiver receiverId, uint txAmount, string memory link) public returns(bool) {
-        // require(receiverId.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
         transactions[numOfTransactions] = Transaction(numOfTransactions, address(receiverId), txAmount, link);
         numOfTransactions++;
         require(receiverId.admin().owner() == admin.owner(), "This receiver is not created by admin");
         receiverId.sendSubFunds(this, txAmount);
-        // emit TransactionRequest(numOfTransactions, receiverId, txAmount);
         return true;
     }
 
