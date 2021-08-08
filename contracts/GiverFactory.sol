@@ -23,8 +23,8 @@ contract Giver {
         amount = address(this).balance;
     }
 
-    function giveFunds(uint amount) public payable {
-        payable(fundsPoolAddress).call{value:amount}("");
+    function giveFunds(uint tx_amount) public payable {
+        payable(fundsPoolAddress).call{value:tx_amount}("");
     }
 
 }
