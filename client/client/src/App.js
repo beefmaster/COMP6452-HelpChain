@@ -21,7 +21,7 @@ class App extends Component {
   
   insertTx = async (link, id, subId) => {
     console.log("this ran");
-    return await fetch('http://localhost:5000/write?txId=10&recAddr=0x9c4050C02E59A90F8852aEdF67fEf876EF9B0473&txAmount=5000020', {method :'POST'})
+    return await fetch('http://localhost:5000/write?txId=10&recAddr=0x9c4050C02E59A90F8852aEdF67fEf876EF9B0473&txAmount=1000', {method :'POST'})
       .then(response => {
         console.log(response.json);
         return response.json;
