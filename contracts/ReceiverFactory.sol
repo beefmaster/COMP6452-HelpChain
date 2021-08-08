@@ -26,6 +26,10 @@ contract Receiver {
         funds += msg.value;
         emit ValueReceived(msg.sender, msg.value);
     }
+
+    function tFunds(address toSend, uint amount) public payable{
+        payable(toSend).transfer(amount);
+    }
     
     function disableContract() public onlyOwner {
         valid = false;
@@ -35,8 +39,6 @@ contract Receiver {
         funds -= cost;
         payable(to_).transfer(cost);
     }
-
-
     // this function is used to send Subsidiaries funds when a transaction is made
     function sendSubFunds(Subsidiary toSend, uint tx_amount) public payable isValid returns(bool){
         require(address(this).balance >= tx_amount, "Receiver contract does not have enough funds"); // check enough funds
@@ -51,7 +53,6 @@ contract Receiver {
         require(msg.sender == admin.owner() || msg.sender == address(admin));
         _;
     }
-
 
     modifier isValid() {
         require(valid == true,"Receiver no longer valid");

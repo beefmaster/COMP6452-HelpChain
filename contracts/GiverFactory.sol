@@ -37,9 +37,10 @@ contract GiverFactory {
     Giver[] public giver_array; // Array of receivers
     uint public numberOfGivers;
 
-    constructor(Admin admin_) payable {
+    constructor(Admin admin_, address fundsPool_) payable {
         owner = msg.sender;
         admin  = admin_;
+        fundsPool = fundsPool_;
     }
 
     function creategiver() public onlyOwner returns (address) {
