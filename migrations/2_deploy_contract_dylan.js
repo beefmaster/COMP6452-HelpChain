@@ -59,8 +59,24 @@ module.exports = async function(deployer, accounts) {
       console.log("corporate Factory:");
       console.log( await AdminD.corporateFactory());
   }).then(async()=>{
+    // Load in the Subsidiary contract ABI 
+  const abi = require('../build/contracts/CorporateFactory.json');
+  const contract = new web3.eth.Contract(abi.abi, CorporateFactoryDeployer.address, {gas: '3000000'});
+  await web3.eth.getAccounts((err, accounts) => {
 
-    
+    // let subAddr = contract.methods.createCorp("Nike", account_1).send({from: account});
+    // console.log(subAddr);
+    // console.log("helo");
+  }).then(async(accounts)=>{
+    const account = accounts[0];
+    const account_1 = accounts[1];
+    await contract.methods.createCorp("Nike", account_1).send({from: account});
+    let subAddr = await contract.methods.getCorporate(0).call({from: account});
+    let numCorps = await contract.methods.numCorps().call({from: account});
+    console.log(subAddr);
+    console.log(numCorps)
+    console.log("helo");
+  });
 
 
   })

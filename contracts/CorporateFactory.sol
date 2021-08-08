@@ -11,7 +11,7 @@ contract CorporateFactory {
     address public owner; // owner address 
     Admin public admin; // admin contract
     mapping(uint => corporate) public corporates; //list of corporates 
-    uint numCorps; // number of corporates
+    uint public numCorps; // number of corporates
     bool active = true; //whether this contract is active 
 
     // Struct used to store corporates in the mapping
