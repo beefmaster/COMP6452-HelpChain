@@ -3,6 +3,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "./Whitelist.sol";
 import "./Admin.sol";
+import "./ReceiverFactory.sol";
 
 /*
     This class is a factory class used to produce instances of Corporates, Corporates will act as a parent class to Subsidiary 
@@ -159,7 +160,7 @@ contract Subsidiary {
     Admin public admin; //Admin
     address public owner; //Corporate owner address
     
-    uint public amount; //Balanace
+    uint public amount; //Balance
     mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
     bool public valid;
@@ -172,7 +173,7 @@ contract Subsidiary {
         string txLink;
     }
 
-    // Event that triggers the off-chain oracle
+    // Event that logs the off-chain oracle call
     event TransactionRequest (
         uint txId,
         address receiverId,
@@ -181,7 +182,7 @@ contract Subsidiary {
 
     // transaction id to person id
     mapping(uint => Transaction) public transactions; // List of transactions @DEV: need to provide rec address and amount (maybe through struct)
-    uint numOfTransactions;
+    uint public numOfTransactions;
 
     constructor(Admin admin_, address owner_) {
         parent_ = Corporate(msg.sender);
@@ -190,14 +191,6 @@ contract Subsidiary {
         permissionedAddress[owner_] = true;
         amount = address(this).balance;
         valid = true;
-    }
-    //testing oracle
-    event CallbackInsertTX();
-
-    function setInsertTX(uint value) public returns (uint){
-        // require(ownership);
-        amount = value;
-        return value;
     }
 
 
@@ -212,11 +205,13 @@ contract Subsidiary {
     // Oracle end point for inserting transaction details into blockchain and recording the mapping
     // function insertTransaction(uint txId, address receiverId, uint txAmount) restricted accountValid public returns(bool) {
 
-    function insertTransaction(uint txId, address receiverId, uint txAmount) public returns(bool) {
+    function insertTransaction(Receiver receiverId, uint txAmount, string memory link) public returns(bool) {
         // require(receiverId.balance >= amount, "The Receiver contract does not have sufficient balance for this transaction"); 
-        amount = txAmount;
-        transactions[txId] = Transaction(txId, receiverId, txAmount, "http://mumboJumbo.jpg");
-        // emit TransactionRequest(txId, receiverId, txAmount);
+        transactions[numOfTransactions] = Transaction(numOfTransactions, address(receiverId), txAmount, link);
+        numOfTransactions++;
+        require(receiverId.admin().owner() == admin.owner(), "This receiver is not created by admin");
+        receiverId.sendSubFunds(this, txAmount);
+        // emit TransactionRequest(numOfTransactions, receiverId, txAmount);
         return true;
     }
 

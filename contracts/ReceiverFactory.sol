@@ -11,28 +11,34 @@ contract Receiver {
     Admin public admin;
     uint public funds;
     event ValueReceived(address user, uint amount);
+    bool public valid; 
 
 
 
     constructor(Admin admin_) {
         admin = admin_;
         ownerReceiver = msg.sender;
+        valid = true;
     }
 
     // Gives the receiver the funds
-    receive() external payable {
+    receive() external isValid payable {
         funds += msg.value;
         emit ValueReceived(msg.sender, msg.value);
     }
+    
+    function disableContract() public onlyOwner {
+        valid = false;
+    }
 
-    function spendFunds(uint cost, address to_) public payable onlyOwner {
+    function spendFunds(uint cost, address to_) public payable isValid onlyOwner {
         funds -= cost;
         payable(to_).transfer(cost);
     }
 
 
     // this function is used to send Subsidiaries funds when a transaction is made
-    function sendSubFunds(Subsidiary toSend, uint tx_amount) public payable returns(bool){
+    function sendSubFunds(Subsidiary toSend, uint tx_amount) public payable isValid returns(bool){
         require(address(this).balance >= tx_amount, "Receiver contract does not have enough funds"); // check enough funds
         require(admin == toSend.admin() || ownerReceiver == toSend.owner(), "Owners/Admin do not match"); // check not hostile subsidiary
         require(toSend.valid() == true, "This subsidiary is no longer valid"); // check sub is valid
@@ -42,7 +48,13 @@ contract Receiver {
     }
 
     modifier onlyOwner() {
-        require(msg.sender == ownerReceiver || msg.sender == address(admin));
+        require(msg.sender == admin.owner() || msg.sender == address(admin));
+        _;
+    }
+
+
+    modifier isValid() {
+        require(valid == true,"Receiver no longer valid");
         _;
     }
 }
