@@ -34,19 +34,30 @@ contract GiverFactory {
     Admin public admin;
     address public fundsPool;
     mapping(address => bool) givers;
+    Giver[] public giver_array; // Array of receivers
     uint public numberOfGivers;
 
-    constructor(Admin admin_, address fundsPool_) payable {
+    constructor(Admin admin_) payable {
         owner = msg.sender;
         admin  = admin_;
-        fundsPool = fundsPool_;
     }
 
     function creategiver() public onlyOwner returns (address) {
         Giver child = new Giver(this, address(fundsPool), admin);
         givers[address(child)]  = true;
         numberOfGivers += 1;
+        giver_array.push(child);
         return address(child);
+    }
+
+    // gets a Giver at index
+    function getGiver(uint index) public view returns(address){
+        return address(giver_array[index]);
+    }
+    
+    // Returns total number of receivers
+    function getNumOfGivers() public view returns(uint){
+        return giver_array.length;
     }
 
     modifier onlyOwner() {
