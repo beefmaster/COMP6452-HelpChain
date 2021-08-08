@@ -44,13 +44,14 @@ module.exports = async function(deployer, accounts) {
     console.log("Reciever Factory: " + ReceiverFactoryDeployer.address);
     console.log("Corporate Factory:" + CorporateFactoryDeployer.address);
     console.log("Giver Factory: " + GiverFactoryDeployer.address);
+    console.log("\n");
   }).then(async()=>{
     await AdminD.updateFundsPool(FundsPoolDeployer.address);
     await AdminD.updateCorporateFactory(CorporateFactoryDeployer.address);      
     await AdminD.updateReceiverFactory(ReceiverFactoryDeployer.address);
     await AdminD.updateGiverFactory(GiverFactoryDeployer.address);
 
-    console.log("Successfully integrated with Admin Contract...")
+    console.log("Successfully integrated with Admin Contract...\n")
     
   }).then(async()=>{
     // Load in the Corporate Factory contract ABI 
@@ -81,6 +82,7 @@ module.exports = async function(deployer, accounts) {
     console.log("Sub 1 Address: " + sub1);
     console.log("Sub 2 Address: " + sub2);
     console.log("Sub 3 Address: " + sub3);
+    console.log("\n")
 
     // create dic of subs
     subs = {
