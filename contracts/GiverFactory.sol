@@ -22,16 +22,10 @@ contract Giver {
         emit ValueReceived(msg.sender, msg.value);
     }
 
-    function giveFunds(uint amount) public payable onlyOwner {
+    function giveFunds(uint amount) public payable {
         payable(fundsPoolAddress).transfer(amount);
     }
-    
-    
-    // checks if valid sender
-    modifier onlyOwner() {
-        require(msg.sender == address(ownerGiver) || msg.sender == address(admin));
-        _;
-    }
+
 }
 
 contract GiverFactory {
