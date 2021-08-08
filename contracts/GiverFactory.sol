@@ -9,6 +9,7 @@ contract Giver {
     GiverFactory public ownerGiver;
     Admin public admin;
     address public fundsPoolAddress;
+    uint public amount;
     event ValueReceived(address user, uint amount);
 
     constructor(GiverFactory ownerGiver_, address fundsPoolAddress_, Admin admin_) payable {
@@ -19,7 +20,7 @@ contract Giver {
 
     // Gives the giver the funds
     receive() external payable {
-        emit ValueReceived(msg.sender, msg.value);
+        amount = address(this).balance;
     }
 
     function giveFunds(uint amount) public payable {

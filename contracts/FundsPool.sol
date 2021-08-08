@@ -28,7 +28,7 @@ contract FundsPool{
 
     function sendFunds(uint amount, address receiver) public payable onlyOwner{
         require(amount <= address(this).balance, "not enough funds");
-        payable(receiver).transfer(amount); 
+        payable(receiver).call{value:amount}("");
         funds -= amount;  
     }
 

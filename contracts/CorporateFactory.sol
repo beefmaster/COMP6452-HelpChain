@@ -217,7 +217,7 @@ contract Subsidiary {
 
     // Provides functionality to receive funds for the subsidiary
     receive() external accountValid payable{
-        emit ValueReceived(msg.sender, msg.value);
+        amount = address(this).balance;
     }
     
 
