@@ -5,9 +5,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 'Transaction Id',
-      id: 'The address of the contract',
-      subId: 'Please denote the corporate Id',
+      value: 'Link to Receipt',
+      id: 'The address of the Receiver contract',
+      subId: 'Please enter the transaction amount',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,22 +25,12 @@ class App extends Component {
     const url_recv = encodeURIComponent(recv_addr);
     const url_subId = encodeURIComponent(txAmount);
 
-    return await fetch(`http://localhost:5000/write?txId=${url_tx}&recAddr=${url_recv}&txAmount=${url_subId}`, {method :'POST'})
+    return await fetch(`http://localhost:5000/write?link=${url_tx}&recAddr=${url_recv}&txAmount=${url_subId}`, {method :'POST'})
       .then(response => {
         console.log(response.json);
         return response.json;
       });
-    
-    // return await fetch('http://127.0.0.1:5000/write' + new URLSearchParams({
-    //   txId: 42,
-    //   recAddr: 20000,
-    //   txAmount: 3
-    // }), {
-    //   method: 'POST'
-    // }).then(response => {
-    //   console.log(response.json)
-    //   return response.json;
-    // });
+
 
   }
 
