@@ -48,7 +48,7 @@ contract GiverFactory {
     mapping(address => bool) givers;
     uint public numberOfGivers;
 
-    constructor(Admin admin_) {
+    constructor(Admin admin_) payable {
         owner = msg.sender;
         admin  = admin_;
     }
