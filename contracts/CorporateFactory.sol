@@ -162,7 +162,7 @@ contract Subsidiary {
     uint public amount; //Balanace
     mapping(address => bool) private permissionedAddress; //provides an array of addresses the Sub can withdraw funds to
     event ValueReceived(address user, uint amount);
-    bool valid;
+    bool public valid;
 
     // Transaction struct to be sent to the off-chain oracle 
     struct Transaction {
