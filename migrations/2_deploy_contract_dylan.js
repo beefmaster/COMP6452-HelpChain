@@ -95,6 +95,14 @@ module.exports = async function(deployer, accounts) {
     //save it to file 
    fs.writeFileSync(path, JSON.stringify(subs));
    console.log("Saved Subsidiary Addresses to " + path);
+
+   //create Receiver Factory
+    const rec_abi = require('../build/contracts/ReceiverFactory.json');
+    const rec_contract = new web3.eth.Contract(rec_abi.abi,ReceiverFactoryDeployer.address, {gas: '3000000'});
+    
+    let recAddress = await rec_contract.methods.createreceiver().call({from: account});
+    await rec_contract.methods.createreceiver().send({from: account}); // Create new Corporate Contract
+    console.log("\nNew Receiver: " + recAddress);
     
   });
 
