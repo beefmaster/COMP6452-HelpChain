@@ -21,7 +21,17 @@ app.use(express.json());
 
 // Admin account (taken from ganache - can remove hardcoding later)
 const account = "0x174FB51467D9E6A37e4048841672173F399b6C05";
+// console.log("Admin account: " + await web3.eth.getAccounts()[0]);
 let address = ""
+web3.eth.getAccounts((err, accounts) => {
+    console.log(accounts[0]);
+})
+.catch((err) => {
+    console.log(err);
+})
+
+
+
 
 // const abi = require('./build/contracts/CorporateFactory.json');
 // const contract = new web3.eth.Contract(abi.abi, "0xf85FA8f98b38110b48816F698D2D7532A77334c2");

@@ -18,16 +18,25 @@ class App extends Component {
     this.state[event.target.name] = event.target.value;
   }
   
+  
   insertTx = async (link, id, subId) => {
     console.log("this ran");
-    return await fetch('http:127.0.0.1/write' + new URLSearchParams({
-      link: 'value',
-      id: 2,
-      subId: 3
-    })).then(response => {
-      console.log(response.json)
-      return response.json;
-    });
+    return await fetch('http://localhost:5000/write?txId=10&recAddr=0x9c4050C02E59A90F8852aEdF67fEf876EF9B0473&txAmount=5000020', {method :'POST'})
+      .then(response => {
+        console.log(response.json);
+        return response.json;
+      });
+    
+    // return await fetch('http://127.0.0.1:5000/write' + new URLSearchParams({
+    //   txId: 42,
+    //   recAddr: 20000,
+    //   txAmount: 3
+    // }), {
+    //   method: 'POST'
+    // }).then(response => {
+    //   console.log(response.json)
+    //   return response.json;
+    // });
 
   }
 
