@@ -8,27 +8,29 @@ contract Giver {
 
     GiverFactory public ownerGiver;
     Admin public admin;
-    uint public funds;
     address public fundsPoolAddress;
     event ValueReceived(address user, uint amount);
 
-    constructor(address fundsPoolAddress_, Admin admin_) payable {
+    constructor(GiverFactory ownerGiver_, address fundsPoolAddress_, Admin admin_) payable {
+        ownerGiver = ownerGiver_;
         fundsPoolAddress = fundsPoolAddress_;
-        funds = 0;
         admin = admin_;
     }
 
     // Gives the giver the funds
     receive() external payable {
-        funds += msg.value;
         emit ValueReceived(msg.sender, msg.value);
     }
 
-    function giveFunds(uint amount) public payable {
-        if (funds >= amount){
-            payable(fundsPoolAddress).transfer(amount);
-            funds -= amount;
-        }
+    function giveFunds(uint amount) public payable onlyOwner {
+        payable(fundsPoolAddress).transfer(amount);
+    }
+    
+    
+    // checks if valid sender
+    modifier onlyOwner() {
+        require(msg.sender == address(ownerGiver) || msg.sender == address(admin));
+        _;
     }
 }
 
@@ -46,7 +48,7 @@ contract GiverFactory {
     }
 
     function creategiver() public onlyOwner returns (address) {
-        Giver child = new Giver(address(fundsPool), admin);
+        Giver child = new Giver(this, address(fundsPool), admin);
         givers[address(child)]  = true;
         numberOfGivers += 1;
         return address(child);
