@@ -19,27 +19,66 @@ let request = require('request')
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-// Admin account (taken from ganache - can remove hardcoding later)
-const account = "0x174FB51467D9E6A37e4048841672173F399b6C05";
-let address = ""
+// Load in the Subsidiary contract ABI 
+const abi = require('./build/contracts/Subsidiary.json');
+const contract = new web3.eth.Contract(abi.abi, "0x68a808ABa2E82B4E65DAC5986A82156065616523", {gas: '3000000'});
+
+// contract.methods.getCorporate(0).call({from: account})
+//     .then ((result) => {
+//         console.log(result);
+// });
+
+// Retrieve Admin Account Address
+web3.eth.getAccounts((err, accounts) => {
+    console.log(accounts[0]);
+    const account = accounts[0];
+    app.post('/write',  async (req, res) => {
+        console.log("hit write url")
+        // Receive query parameters
+        var txId = req.query.txId;
+        var recAddr = req.query.recAddr;
+        var txAmount = req.query.txAmount;
+        // var link = require('sample_reciept.png');
+        
+        // Open JSON Database store
+        let cur = fs.readFileSync('db_json.json');
+        let curObj = JSON.parse(cur);
+        console.log("DB is: " + curObj);
+    
+        // Write transaction information to JSON DB
+        curObj.push({"id" : txId, "receiverAddress" : recAddr, "txAmount" : txAmount});
+        let txData = JSON.stringify(curObj);
+        fs.writeFileSync('./db_json.json', txData, (err) => {
+            if (err){
+                console.error(err);
+            }
+        });
+        // Write transaction information to Subsidiary contract
+        contract.methods.insertTransaction(txId, recAddr, txAmount).send({from: account});
+        // .then ((result) => {
+        //     console.log(result);
+        // });
+    
+        console.log("DB is: " + curObj);
+        console.log("Information: " + txId + " " + recAddr + " " + txAmount);
+    
+        res.sendStatus(200);
+    })
+})
+.catch((err) => {
+    console.log(err);
+})
 
 
-// const abi = require('./build/contracts/Subsidiary.json');
-// const contract = new web3.eth.Contract(abi.abi, "0x58cbE4340B1A54b400F9E9505F052A3dFCEc28CF");
-// var dummy =  contract.methods.setInsertTX(69);
-// console.log(dummy);
 
-const abi = require('./build/contracts/CorporateFactory.json');
-const contract = new web3.eth.Contract(abi.abi, "0xf85FA8f98b38110b48816F698D2D7532A77334c2");
-// console.log(contract.methods);
-console.log(contract.methods.getCorporate(0));
+// To DO:
+// 1. Need to automate selection of susidiary contract address - avoid hardcoding
+// 2. Need to manage conflicting transaction ids, currently user input/ maybe switch?
+// 3. Send the transfer funds to the recipient contract
+// 4. Handle errors
+// 5. Add the restriction modifiers back into corporatefactory.sol for insertTX
 
-contract.methods.getCorporate(0).call({from: account})
-    .then ((result) => {
-        console.log(result);
-    });
 
-// console.log(contract.methods);
 
 // web3.eth.getAccounts((err, accounts) => {
 //     subsidiaryContract.deployed()
