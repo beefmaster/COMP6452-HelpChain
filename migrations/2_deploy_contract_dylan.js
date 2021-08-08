@@ -39,26 +39,19 @@ module.exports = async function(deployer, accounts) {
     
 
     // let WhiteListDeployer = await deployer.deploy(WhiteList);
-    console.log("Funds Pool:");
-    console.log(FundsPoolDeployer.address);
-    console.log("Reciever Factory:");
-    console.log(ReceiverFactoryDeployer.address);
-    console.log("corporate Factory:");
-    console.log(CorporateFactoryDeployer.address);
-    console.log("Giver Factory:");
-    console.log(GiverFactoryDeployer.address);
+    console.log("Core Contracts Created:")
+    console.log("Funds Pool: " + FundsPoolDeployer.address);
+    console.log("Reciever Factory: " + ReceiverFactoryDeployer.address);
+    console.log("Corporate Factory:" + CorporateFactoryDeployer.address);
+    console.log("Giver Factory: " + GiverFactoryDeployer.address);
   }).then(async()=>{
     await AdminD.updateFundsPool(FundsPoolDeployer.address);
     await AdminD.updateCorporateFactory(CorporateFactoryDeployer.address);      
     await AdminD.updateReceiverFactory(ReceiverFactoryDeployer.address);
     await AdminD.updateGiverFactory(GiverFactoryDeployer.address);
 
-      console.log("funds deployer: ");
-      console.log(await AdminD.fundsPool());
-      console.log("Reciever Factory:");
-      console.log(await AdminD.receiverFactory());
-      console.log("corporate Factory:");
-      console.log( await AdminD.corporateFactory());
+    console.log("Successfully integrated with Admin Contract...")
+    
   }).then(async()=>{
     // Load in the Corporate Factory contract ABI 
   const abi = require('../build/contracts/CorporateFactory.json');
@@ -84,6 +77,7 @@ module.exports = async function(deployer, accounts) {
     let sub3 = await corporate.methods.createSub().call({from: account}); // Create new Subsidiary
     await corporate.methods.createSub().send({from: account});
 
+    console.log("New Subsidiaries Created:")
     console.log("Sub 1 Address: " + sub1);
     console.log("Sub 2 Address: " + sub2);
     console.log("Sub 3 Address: " + sub3);
@@ -95,8 +89,10 @@ module.exports = async function(deployer, accounts) {
       2 : sub3
     };
 
+    let path = "./subAddresses.json";
     //save it to file 
-   fs.writeFileSync("./subAddresses.json", JSON.stringify(subs));
+   fs.writeFileSync(path, JSON.stringify(subs));
+   console.log("Saved Subsidiary Addresses to " + path);
     
   });
 
