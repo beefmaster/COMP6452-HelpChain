@@ -5,8 +5,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 'Please include the url to the receipt',
-      id: 'Please include the persons Id',
+      value: 'Transaction Id',
+      id: 'The address of the contract',
       subId: 'Please denote the corporate Id',
     };
 
@@ -19,9 +19,13 @@ class App extends Component {
   }
   
   
-  insertTx = async (link, id, subId) => {
+  insertTx = async (txId, recv_addr, txAmount) => {
     console.log("this ran");
-    return await fetch('http://localhost:5000/write?txId=10&recAddr=0x9c4050C02E59A90F8852aEdF67fEf876EF9B0473&txAmount=1000', {method :'POST'})
+    const url_tx = encodeURIComponent(txId);
+    const url_recv = encodeURIComponent(recv_addr);
+    const url_subId = encodeURIComponent(txAmount);
+
+    return await fetch(`http://localhost:5000/write?txId=${url_tx}&recAddr=${url_recv}&txAmount=${url_subId}`, {method :'POST'})
       .then(response => {
         console.log(response.json);
         return response.json;
